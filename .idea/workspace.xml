@@ -4,33 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5ebd3faf-5156-4e83-bb66-dc3af2513721" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/templateLanguages.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/web-AI.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/webResources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/APP/app.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/APP/static/css/1.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/APP/static/css/login.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/APP/static/js/md.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/APP/templates/hello.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/APP/templates/user/ask.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/APP/templates/user/chat.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/APP/templates/user/chat2.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/APP/templates/user/login.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/APP/test.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/APP/views/handleMsg.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-    </list>
+    <list default="true" id="5ebd3faf-5156-4e83-bb66-dc3af2513721" name="更改" comment="day 1: 实现了简单demo，确定了程序结构和目录" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -100,6 +74,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="G:\web-AI\APP\views" />
       <recent name="G:\web-AI\APP" />
     </key>
   </component>
@@ -155,12 +130,25 @@
       <option name="presentableId" value="Default" />
       <updated>1734083001231</updated>
       <workItem from="1734083002624" duration="5949000" />
-      <workItem from="1734248406878" duration="17231000" />
+      <workItem from="1734248406878" duration="17637000" />
     </task>
+    <task id="LOCAL-00001" summary="day 1: 实现了简单demo，确定了程序结构和目录">
+      <option name="closed" value="true" />
+      <created>1734274206602</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1734274206602</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="day 1: 实现了简单demo，确定了程序结构和目录" />
+    <option name="LAST_COMMIT_MESSAGE" value="day 1: 实现了简单demo，确定了程序结构和目录" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/web_AI$web_AI.coverage" NAME="web-AI 覆盖结果" MODIFIED="1734273251586" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
