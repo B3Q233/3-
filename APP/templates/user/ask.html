@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Layui对话框示例</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="//unpkg.com/layui@2.9.20/dist/css/layui.css" rel="stylesheet"> <!-- 引入Layui的CSS文件 -->
+</head>
+
+<body>
+  <button id="openSimpleDialog">打开简单对话框</button>
+  <button id="openConfirmDialog">打开确认对话框</button>
+  <button id="openPromptDialog">打开输入提示对话框</button>
+
+  <script src="//unpkg.com/layui@2.9.20/dist/layui.js"></script> <!-- 引入Layui的JavaScript文件 -->
+  <script>
+    layui.use('layer', function () {
+      var layer = layui.layer;
+
+      // 点击打开简单对话框
+      document.getElementById('openSimpleDialog').onclick = function () {
+        layer.open({
+          type: 1, // 页面层类型
+          title: '简单对话框',
+          content: '这是一个简单的对话框示例内容',
+          area: ['300px', '200px'] // 设置对话框宽高
+        });
+      };
+
+      // 点击打开确认对话框
+      document.getElementById('openConfirmDialog').onclick = function () {
+        layer.confirm('确定要执行此操作吗？', {
+          title: '确认提示',
+          btn: ['确定', '取消'] // 按钮文本
+        }, function (index) {
+          layer.close(index); // 关闭对话框
+          // 这里可以添加确定按钮点击后的业务逻辑，比如发送请求等
+          alert('你点击了确定按钮');
+        }, function (index) {
+          layer.close(index); // 关闭对话框
+          // 这里可以添加取消按钮点击后的业务逻辑，比如不做任何操作等
+          alert('你点击了取消按钮');
+        });
+      };
+
+      // 点击打开输入提示对话框
+      document.getElementById('openPromptDialog').onclick = function () {
+        layer.prompt({
+          title: '请输入内容',
+          formType: 2 // 输入框类型，2表示密码框，0表示普通文本框等
+        }, function (value, index) {
+          layer.close(index);
+          // 这里可以添加获取到输入内容后的业务逻辑，比如验证输入等
+          alert('你输入的内容是：' + value);
+        });
+      };
+    });
+  </script>
+</body>
+
+</html>

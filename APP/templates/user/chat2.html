@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>QQ聊天窗口示例</title>
+    <!-- 引入Layui的CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/layui-src/dist/css/layui.css" media="all">
+    <!-- 自定义样式 -->
+    <style>
+        .chat-container {
+            width: 500px;
+            height: 600px;
+            border: 1px solid #ddd;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .chat-header {
+            height: 40px;
+            line-height: 40px;
+            background-color: #1e9fff;
+            color: #fff;
+            padding: 0 10px;
+        }
+        .chat-body {
+            height: calc(100% - 90px);
+            padding: 10px;
+            overflow-y: auto;
+        }
+        .chat-footer {
+            height: 50px;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+        }
+        .msg-item {
+            margin-bottom: 10px;
+        }
+        .msg-item .msg-content {
+            display: inline-block;
+            background-color: #f2f2f2;
+            padding: 5px 10px;
+            border-radius: 5px;
+            max-width: 70%;
+        }
+        .msg-item.right .msg-content {
+            background-color: #9eea6a;
+        }
+    </style>
+</head>
+<body>
+
+<div class="chat-container">
+    <div class="chat-header">聊天窗口</div>
+    <div class="chat-body" id="chatBody">
+        <!-- 聊天内容将在这里显示 -->
+    </div>
+    <div class="chat-footer">
+        <input type="text" id="msgInput" class="layui-input" style="width: 80%; display: inline-block;">
+        <button class="layui-btn layui-btn-normal" onclick="sendMessage()">发送</button>
+    </div>
+</div>
+
+<!-- 引入Layui的JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/layui-src/dist/layui.all.js"></script>
+<script>
+    function sendMessage() {
+        var input = document.getElementById('msgInput');
+        var msg = input.value;
+        if (msg.trim() === '') {
+            return;
+        }
+        addMessage(msg, 'right');
+        input.value = ''; // 清空输入框
+    }
+
+    function addMessage(msg, align) {
+        var chatBody = document.getElementById('chatBody');
+        var msgItem = document.createElement('div');
+        msgItem.className = 'msg-item ' + align;
+        msgItem.innerHTML = '<div class="msg-content">' + msg + '</div>';
+        chatBody.appendChild(msgItem);
+        // 滚动到底部
+        chatBody.scrollTop = chatBody.scrollHeight;
+    }
+</script>
+
+</body>
+</html>
