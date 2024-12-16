@@ -4,14 +4,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>登录</title>
-    <link rel="stylesheet" href="../static/css/login.css">
+    <title>用户注册</title>
+    <link rel="stylesheet" href="../static/css/user_register.css">
     <script>
         function validateForm() {
-            var username = document.forms["loginForm"]["username"].value;
-            var password = document.forms["loginForm"]["password"].value;
+            var username = document.forms["userloginForm"]["username"].value;
+            var password = document.forms["userloginForm"]["password"].value;
+            var email = document.forms["userloginForm"]["email"].value;
             var usernameRegex = /^[a-zA-Z]{3,}$/;
             var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/;
+            var emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
             if (!usernameRegex.test(username)) {
                 alert("账号格式错误：必须是3个及以上的英文字母");
@@ -23,13 +25,18 @@
                 return false;
             }
 
+            if (!emailRegex.test(email)) {
+                alert("邮箱格式错误，请输入正确的邮箱地址");
+                return false;
+            }
+
             return true;
         }
     </script>
 </head>
 <body>
     <div class="box">
-        <h2>用户登录</h2>
+        <h2>用户注册</h2>
         <form name="userloginForm" onsubmit="return validateForm()" method="post">
             <div class="input-box">
                 <label>账号</label>
@@ -39,12 +46,13 @@
                 <label>密码</label>
                 <input type="password" name="password">
             </div>
+            <div class="input-box">
+                <label>邮箱</label>
+                <input type="email" name="email">
+            </div>
             <div class="btn-box">
-                <a href="../admin/admin_login.html">管理员登陆</a>
                 <div>
-                    <button type="submit">登录</button>
-{#                    <button type="button">注册</button>#}
-                    <button><a href="../user/user_register.html">注册</a></button>
+                    <button type="button">注册</button>
                 </div>
             </div>
         </form>

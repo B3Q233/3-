@@ -29,8 +29,8 @@
 </head>
 <body>
     <div class="box">
-        <h2>用户登录</h2>
-        <form name="userloginForm" onsubmit="return validateForm()" method="post">
+        <h2>管理员登陆</h2>
+        <form name="adminloginForm" onsubmit="return validateForm()" method="post">
             <div class="input-box">
                 <label>账号</label>
                 <input type="text" name="username">
@@ -40,11 +40,10 @@
                 <input type="password" name="password">
             </div>
             <div class="btn-box">
-                <a href="../admin/admin_login.html">管理员登陆</a>
+                <a href="../user/login.html">用户登陆</a>
                 <div>
                     <button type="submit">登录</button>
 {#                    <button type="button">注册</button>#}
-                    <button><a href="../user/user_register.html">注册</a></button>
                 </div>
             </div>
         </form>
