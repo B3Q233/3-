@@ -3,29 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" width="width=device-width, initial-scale=1.0">
     <title>登录</title>
     <link rel="stylesheet" href="../static/css/login.css">
-    <script>
-        function validateForm() {
-            var username = document.forms["loginForm"]["username"].value;
-            var password = document.forms["loginForm"]["password"].value;
-            var usernameRegex = /^[a-zA-Z]{3,}$/;
-            var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/;
-
-            if (!usernameRegex.test(username)) {
-                alert("账号格式错误：必须是3个及以上的英文字母");
-                return false;
-            }
-
-            if (!passwordRegex.test(password)) {
-                alert("密码格式错误：必须是6~12位，必须包含英文和数字");
-                return false;
-            }
-
-            return true;
-        }
-    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  <!-- 引入jQuery库，方便使用Ajax -->
 </head>
 <body>
     <div class="box">
@@ -43,11 +24,53 @@
                 <a href="../admin/admin_login.html">管理员登陆</a>
                 <div>
                     <button type="submit">登录</button>
-{#                    <button type="button">注册</button>#}
                     <button><a href="../user/user_register.html">注册</a></button>
                 </div>
             </div>
         </form>
     </div>
 </body>
+<script>
+        function validateForm() {
+            var username = document.forms["userloginForm"]["username"].value;
+            var password = document.forms["userloginForm"]["password"].value;
+            var usernameRegex = /^[a-zA-Z]{3,}$/;
+            var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/;
+
+            if (!usernameRegex.test(username)) {
+                alert("账号格式错误：必须是3个及以上的英文字母");
+                return false;
+            }
+
+            if (!passwordRegex.test(password)) {
+                alert("密码格式错误：必须是6~12位，必须包含英文和数字");
+                return false;
+            }
+
+            // 格式验证通过后，使用Ajax发送数据到后端
+            $.ajax({
+                type: "POST",
+                url: "/user_login_check",  // 后端验证登录的接口地址，需根据实际情况修改
+                data: {
+                    username: username,
+                    password: password
+                },
+                dataType: "json",
+                success: function (response) {
+                    if (response.success) {
+                        // 若后端返回成功（这里假设后端返回的数据格式中有success字段表示验证结果）
+                        alert("用户登录成功");
+                        window.location.href = "index.html";  // 跳转到首页，首页地址可根据实际修改
+                    } else {
+                        // 若后端返回失败，显示失败原因（假设后端返回的失败数据中有message字段携带原因）
+                        alert("用户登录失败：" + response.message);
+                    }
+                },
+                error: function () {
+                    alert("请求发生错误，请稍后再试");
+                }
+            });
+            return false;  // 阻止表单默认提交行为，因为使用了Ajax提交
+        }
+    </script>
 </html>
