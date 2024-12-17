@@ -4,14 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5ebd3faf-5156-4e83-bb66-dc3af2513721" name="更改" comment="day 1: 实现了简单demo，确定了程序结构和目录">
-      <change afterPath="$PROJECT_DIR$/APP/views/admin_login_check.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/APP/views/user_login_check.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/APP/views/user_register_check.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/APP/templates/admin/admin_login.html" beforeDir="false" afterPath="$PROJECT_DIR$/APP/templates/admin/admin_login.html" afterDir="false" />
+    <list default="true" id="5ebd3faf-5156-4e83-bb66-dc3af2513721" name="更改" comment="day2: 进行了数据库测试，和登录注册功能测试">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/1.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/APP/control/AI_model/handleMsg.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/APP/control/user/user_handle.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/APP/logs/2024-12-16_db_operations.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/APP/logs/logConfig.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/APP/model/db.ini" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/APP/model/entity/User.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/APP/model/operation/UserModel.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/APP/model/sqltest.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/APP/model/test.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/response.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/sqlData/sql.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/APP/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/APP/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/APP/templates/user/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/APP/templates/user/login.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/APP/templates/user/user_register.html" beforeDir="false" afterPath="$PROJECT_DIR$/APP/templates/user/user_register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/APP/views/admin_login_check.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/APP/views/user_login_check.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/APP/views/user_register_check.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +79,7 @@
     "Python.test.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "testing",
     "last_opened_file_path": "D:/mygit/Curriculum-design-project",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
@@ -106,7 +118,6 @@
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="task" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -193,12 +204,16 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="day 1: 实现了简单demo，确定了程序结构和目录" />
-    <option name="LAST_COMMIT_MESSAGE" value="day 1: 实现了简单demo，确定了程序结构和目录" />
+    <MESSAGE value="day2: 进行了数据库测试，和登录注册功能测试" />
+    <option name="LAST_COMMIT_MESSAGE" value="day2: 进行了数据库测试，和登录注册功能测试" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/web_AI$web_AI.coverage" NAME="web-AI 覆盖结果" MODIFIED="1734273251586" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Curriculum_design_project$web_AI.coverage" NAME="web-AI 覆盖结果" MODIFIED="1734324633520" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/webai$web_AI.coverage" NAME="web-AI 覆盖结果" MODIFIED="1734401467794" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/webai$User.coverage" NAME="User 覆盖结果" MODIFIED="1734399323840" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/APP/model/entity" />
     <SUITE FILE_PATH="coverage/web_AI$test.coverage" NAME="test 覆盖结果" MODIFIED="1734089429648" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/APP" />
     <SUITE FILE_PATH="coverage/web_AI$Flask__APP_app_py_.coverage" NAME="Flask (APP/app.py) 覆盖结果" MODIFIED="1734089177304" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/Curriculum_design_project$web_AI.coverage" NAME="web-AI 覆盖结果" MODIFIED="1734324633520" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/web_AI$web_AI.coverage" NAME="web-AI 覆盖结果" MODIFIED="1734273251586" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/webai$Flask__APP_app_py_.coverage" NAME="Flask (APP/app.py) 覆盖结果" MODIFIED="1734399844899" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>

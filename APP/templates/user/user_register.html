@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>用户注册</title>
     <link rel="stylesheet" href="../static/css/user_register.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/layui-src/dist/css/layui.css" media="all">
+    <script src="https://cdn.jsdelivr.net/npm/layui-src/dist/layui.all.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  <!-- 引入jQuery库，方便使用Ajax -->
+
 </head>
 <body>
     <div class="box">
@@ -25,54 +29,59 @@
             </div>
             <div class="btn-box">
                 <div>
-                    <button type="button">注册</button>
+                    <button type="button" onclick="validateForm()">注册</button>
                 </div>
             </div>
         </form>
     </div>
 </body>
     <script>
+        function showError(msg){
+            layui.use('layer', function(){
+            let layer = layui.layer;
+             layer.msg(msg); // 默认风格
+            });
+        }
+
         function validateForm() {
-            var username = document.forms["userloginForm"]["username"].value;
-            var password = document.forms["userloginForm"]["password"].value;
-            var email = document.forms["userloginForm"]["email"].value;
-            var usernameRegex = /^[a-zA-Z]{3,}$/;
-            var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/;
-            var emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            let username = document.forms["userloginForm"]["username"].value;
+            let password = document.forms["userloginForm"]["password"].value;
+            let email = document.forms["userloginForm"]["email"].value;
+            let usernameRegex = /^[a-zA-Z]{3,}$/;
+            let passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/;
+            let emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
             if (!usernameRegex.test(username)) {
-                alert("账号格式错误：必须是3个及以上的英文字母");
+                showError("账号格式错误：必须是3个及以上的英文字母")
                 return false;
             }
 
             if (!passwordRegex.test(password)) {
-                alert("密码格式错误：必须是6~12位，必须包含英文和数字");
+                showError("密码格式错误：必须是6~12位，必须包含英文和数字")
                 return false;
             }
 
             if (!emailRegex.test(email)) {
-                alert("邮箱格式错误，请输入正确的邮箱地址");
+                showError("邮箱格式错误，请输入正确的邮箱地址")
                 return false;
             }
+            let data = {}
+            data['username'] = username
+            data['email'] = email
+            data['password'] = password
              // 格式验证通过后，使用Ajax发送数据到后端
             $.ajax({
                 type: "POST",
+                contentType: 'application/json',
                 url: "/user_register_check",  // 后端验证登录的接口地址，需根据实际情况修改
-                data: {
-                    username: username,
-                    password: password,
-                    email: email
-                },
+                data:data,
                 dataType: "json",
                 success: function (response) {
-                    if (response.success) {
-                        // 若后端返回成功（这里假设后端返回的数据格式中有success字段表示验证结果）
-                        alert("注册成功");
-                        window.location.href = "index.html";  // 跳转到首页，首页地址可根据实际修改
-                    } else {
-                        // 若后端返回失败，显示失败原因（假设后端返回的失败数据中有message字段携带原因）
-                        alert("注册失败：" + response.message);
+                    if(response.status === 1){
+                        showError(response.msg);
+                        window.location.href = "index.html";
                     }
+                     showError(response.msg);
                 },
                 error: function () {
                     alert("请求发生错误，请稍后再试");
