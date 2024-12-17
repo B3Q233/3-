@@ -1,4 +1,5 @@
-create database AIChat
+create database AIChat;
+use AIChat;
 create table users
 (
     id       int auto_increment
