@@ -13,7 +13,7 @@ def init():
     global engine
 
     config = configparser.ConfigParser()
-    config.read("G:\web-AI\APP\model\db.ini")
+    config.read("D:\mygit\Curriculum-design-project\APP\model\db.ini")
 
     db_config = config['database']
     pool_config = config['pool']

@@ -51,17 +51,17 @@
             let passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/;
             let emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-            if (!usernameRegex.test(username)) {
+            if (!usernameRegex.test(username)||username===""||username==null) {
                 showError("账号格式错误：必须是3个及以上的英文字母")
                 return false;
             }
 
-            if (!passwordRegex.test(password)) {
+            if (!passwordRegex.test(password)||password===""||password==null) {
                 showError("密码格式错误：必须是6~12位，必须包含英文和数字")
                 return false;
             }
 
-            if (!emailRegex.test(email)) {
+            if (!emailRegex.test(email)||email===""||email==null) {
                 showError("邮箱格式错误，请输入正确的邮箱地址")
                 return false;
             }

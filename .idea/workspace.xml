@@ -6,7 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="5ebd3faf-5156-4e83-bb66-dc3af2513721" name="更改" comment="day2：进行了简单测试">
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/web-AI.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/web-AI.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/APP/model/db.ini" beforeDir="false" afterPath="$PROJECT_DIR$/APP/model/db.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/APP/model/sqltest.py" beforeDir="false" afterPath="$PROJECT_DIR$/APP/model/sqltest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/APP/templates/admin/admin_login.html" beforeDir="false" afterPath="$PROJECT_DIR$/APP/templates/admin/admin_login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/APP/templates/user/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/APP/templates/user/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/APP/templates/user/user_register.html" beforeDir="false" afterPath="$PROJECT_DIR$/APP/templates/user/user_register.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,6 +66,7 @@
     "Flask 服务器.web-AI.executor": "Run",
     "HTTP 请求.generated-requests | #1.executor": "Run",
     "HTTP 请求.generated-requests中的所有.executor": "Run",
+    "Python.User.executor": "Run",
     "Python.test.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
@@ -70,7 +78,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "inlay.hints",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
     "ts.external.directory.path": "G:\\PyCharm 2024.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   },
@@ -142,6 +150,8 @@
       <workItem from="1734316440953" duration="1380000" />
       <workItem from="1734317847506" duration="1927000" />
       <workItem from="1734322774927" duration="2944000" />
+      <workItem from="1734404263544" duration="255000" />
+      <workItem from="1734433562504" duration="4701000" />
     </task>
     <task id="LOCAL-00001" summary="day 1: 实现了简单demo，确定了程序结构和目录">
       <option name="closed" value="true" />
@@ -205,12 +215,13 @@
     <option name="LAST_COMMIT_MESSAGE" value="day2：进行了简单测试" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/web_AI$web_AI.coverage" NAME="web-AI 覆盖结果" MODIFIED="1734273251586" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Curriculum_design_project$web_AI.coverage" NAME="web-AI 覆盖结果" MODIFIED="1734324633520" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/webai$web_AI.coverage" NAME="web-AI 覆盖结果" MODIFIED="1734401467794" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/webai$User.coverage" NAME="User 覆盖结果" MODIFIED="1734399323840" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/APP/model/entity" />
     <SUITE FILE_PATH="coverage/web_AI$test.coverage" NAME="test 覆盖结果" MODIFIED="1734089429648" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/APP" />
     <SUITE FILE_PATH="coverage/web_AI$Flask__APP_app_py_.coverage" NAME="Flask (APP/app.py) 覆盖结果" MODIFIED="1734089177304" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/Curriculum_design_project$User.coverage" NAME="User 覆盖结果" MODIFIED="1734435609827" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/APP/model/entity" />
+    <SUITE FILE_PATH="coverage/Curriculum_design_project$web_AI.coverage" NAME="web-AI 覆盖结果" MODIFIED="1734441132693" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/web_AI$web_AI.coverage" NAME="web-AI 覆盖结果" MODIFIED="1734273251586" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/webai$web_AI.coverage" NAME="web-AI 覆盖结果" MODIFIED="1734401467794" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/webai$Flask__APP_app_py_.coverage" NAME="Flask (APP/app.py) 覆盖结果" MODIFIED="1734399844899" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>
