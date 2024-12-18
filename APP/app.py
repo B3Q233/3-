@@ -36,7 +36,6 @@ def getMsg(msg=None):
 
 @app.route('/user_register_check', methods=['GET', 'POST'])
 def user_register_check():
-    print(request.method)
     if request.method == 'POST':
         decoded_data = request.data.decode('utf-8')
         # 解析查询字符串

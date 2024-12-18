@@ -45,15 +45,19 @@
             let usernameRegex = /^[a-zA-Z]{3,}$/;
             let passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/;
 
-            {#if (!usernameRegex.test(username)) {#}
-            {#    alert("账号格式错误：必须是3个及以上的英文字母");#}
-            {#    return false;#}
-            {#}#}
-            {##}
-            {#if (!passwordRegex.test(password)) {#}
-            {#    alert("密码格式错误：必须是6~12位，必须包含英文和数字");#}
-            {#    return false;#}
-            {#}#}
+            if (username===''||username===null) {
+                alert("账号格式错误：必须是3个及以上的英文字母");
+                return false;
+            }
+
+             if (username===''||username===null) {
+                alert("账号格式错误：必须是3个及以上的英文字母");
+                return false;
+            }
+            if (!passwordRegex.test(password)) {
+                alert("密码格式错误：必须是6~12位，必须包含英文和数字");
+                return false;
+            }
 
             // 格式验证通过后，使用Ajax发送数据到后端
             $.ajax({
