@@ -17,3 +17,12 @@ create table users
         unique (username)
 );
 
+create table admin
+(
+    administrator_id   int auto_increment
+        primary key,
+    administrator_name varchar(50) not null,
+    password           varchar(20) not null,
+    email              varchar(20) not null
+);
+

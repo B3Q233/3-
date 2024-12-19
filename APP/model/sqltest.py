@@ -1,6 +1,6 @@
 import configparser
 from sqlalchemy import create_engine
-from sqlalchemy import text
+import os
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import declarative_base
 
@@ -13,7 +13,8 @@ def init():
     global engine
 
     config = configparser.ConfigParser()
-    config.read("G:\web-AI\APP\model\db.ini")
+    config_file_path = os.path.join(os.path.dirname(__file__), 'db.ini')
+    config.read(config_file_path)
 
     db_config = config['database']
     pool_config = config['pool']
@@ -55,6 +56,4 @@ def close_session(session):
 
 init()
 
-if __name__ == '__main__':
-    init()
 

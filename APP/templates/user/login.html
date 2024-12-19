@@ -26,7 +26,7 @@
                 <a href="../admin/admin_login.html">管理员登陆</a>
                 <div>
                     <button type="submit">登录</button>
-                    <button><a href="../user/user_register.html">注册</a></button>
+                    <button type="button" onclick="window.location.href='../user/user_register.html';">注册</button>
                 </div>
             </div>
         </form>
@@ -45,17 +45,13 @@
             let usernameRegex = /^[a-zA-Z]{3,}$/;
             let passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/;
 
-            if (username===''||username===null) {
-                alert("账号格式错误：必须是3个及以上的英文字母");
+            if (username === ""||username == null) {
+                alert("账号不能为空");
                 return false;
             }
 
-             if (username===''||username===null) {
-                alert("账号格式错误：必须是3个及以上的英文字母");
-                return false;
-            }
-            if (!passwordRegex.test(password)) {
-                alert("密码格式错误：必须是6~12位，必须包含英文和数字");
+            if (password === ""||password == null) {
+                alert("密码不能为空");
                 return false;
             }
 

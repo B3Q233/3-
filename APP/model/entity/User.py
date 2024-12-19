@@ -1,19 +1,12 @@
-from sqlalchemy import create_engine, Column, Integer, String, Index
+from sqlalchemy import Column, Integer, String, Index
 from sqlalchemy.orm import declarative_base
 from APP.model import sqltest
 
 Base = declarative_base()
 
-from sqlalchemy import create_engine, Column, Integer, String
-from sqlalchemy.orm import declarative_base
-from sqlalchemy.orm import sessionmaker
-
-engine = create_engine("mysql+pymysql://root:password@localhost/dbname?charset=utf8", echo=True)
-Base = declarative_base()
-
 
 class User(Base):
-    __tablename__ = 'Users'  # 数据库表名
+    __tablename__ = 'Users'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     email = Column(String(30), nullable=False, unique=True)
@@ -30,7 +23,7 @@ class User(Base):
         'primary_key': [id],
     }
 
-    def __init__(self, id=None, email=None, api_key=None, password=None, username=None,quota=None):
+    def __init__(self, id=None, email=None, api_key=None, password=None, username=None, quota=None):
         self.id = id
         self.email = email
         self.api_key = api_key
