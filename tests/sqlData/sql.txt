@@ -1,4 +1,4 @@
-create database AIChat;
+CREATE DATABASE IF NOT EXISTS AIChat;
 use AIChat;
 create table users
 (
@@ -26,3 +26,11 @@ create table admin
     email              varchar(20) not null
 );
 
+create table models
+(
+    model_id       int auto_increment
+        primary key,
+    model_name     varchar(100) not null,
+    model_category varchar(50)  not null,
+    initial_text   varchar(500) not null
+);

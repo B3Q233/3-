@@ -5,28 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5ebd3faf-5156-4e83-bb66-dc3af2513721" name="更改" comment="day3：新增模型表model，管理员表admin以及相关gongn">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/9277e88e-20ac-49bd-a0ac-8e29bbef9a97.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/APP/logs/2024-12-18_db_operations.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/APP/model/entity/Admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/APP/model/entity/Model.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/APP/model/operation/AdminModel.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/APP/model/operation/ModelsModel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/9066be9e-33a0-4b95-a587-29288657ed65.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/9066be9e-33a0-4b95-a587-29288657ed65.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/web-AI.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/web-AI.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/APP/logs/logConfig.py" beforeDir="false" afterPath="$PROJECT_DIR$/APP/logs/logConfig.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/APP/model/db.ini" beforeDir="false" afterPath="$PROJECT_DIR$/APP/model/db.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/APP/model/entity/User.py" beforeDir="false" afterPath="$PROJECT_DIR$/APP/model/entity/User.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/APP/model/sqltest.py" beforeDir="false" afterPath="$PROJECT_DIR$/APP/model/sqltest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/APP/templates/admin/admin_login.html" beforeDir="false" afterPath="$PROJECT_DIR$/APP/templates/admin/admin_login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/APP/templates/user/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/APP/templates/user/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/APP/templates/user/user_register.html" beforeDir="false" afterPath="$PROJECT_DIR$/APP/templates/user/user_register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/APP/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/APP/test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/sqlData/sql.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tests/sqlData/sql.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -92,7 +72,7 @@
     "Python.test.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "正在合并 testing",
+    "git-widget-placeholder": "testing",
     "last_opened_file_path": "D:/mygit/Curriculum-design-project",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
@@ -121,7 +101,7 @@
       <recent name="G:\web-AI\APP" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Flask 服务器.web-AI">
     <configuration name="generated-requests | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" requestIdentifier="#1">
       <method v="2" />
     </configuration>
@@ -176,6 +156,7 @@
       <workItem from="1734433562504" duration="4701000" />
       <workItem from="1734536030579" duration="4222000" />
       <workItem from="1734607521776" duration="3439000" />
+      <workItem from="1734622851860" duration="400000" />
     </task>
     <task id="LOCAL-00001" summary="day 1: 实现了简单demo，确定了程序结构和目录">
       <option name="closed" value="true" />
@@ -209,7 +190,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734401523888</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="day3：新增模型表model，管理员表admin以及相关gongn">
+      <option name="closed" value="true" />
+      <created>1734622909466</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1734622909466</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
