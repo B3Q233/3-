@@ -23,7 +23,7 @@ def admin_login(name=None):
 # 用户注册
 @app.route('/user/user_register.html', methods=['GET', 'POST'])
 def user_register(name=None):
-    return render_template('/user/user_register.html')
+    return render_template('/   user/user_register.html')
 
 
 @app.route('/getMsg', methods=['POST'])

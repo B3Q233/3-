@@ -8,7 +8,7 @@ Base = declarative_base()
 
 class Model(Base):
     """
-    BigModel类用于表示系统中的大模型信息，对应数据库中的大模型表。
+    Model类用于表示系统中的大模型信息，对应数据库中的大模型表。
 
     定义了大模型相关的属性以及与数据库表结构的映射关系，方便进行数据库操作。
     """
@@ -25,7 +25,7 @@ class Model(Base):
 
     def __init__(self, model_id=None, model_name=None, model_category=None, initial_text=None):
         """
-        初始化BigModel类实例。
+        初始化Model类实例。
 
         参数:
         - model_id: 大模型的唯一标识符，整数类型，默认值为None，数据库操作时可自动递增生成。

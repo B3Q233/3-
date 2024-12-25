@@ -1,6 +1,6 @@
 CREATE DATABASE IF NOT EXISTS AIChat;
 use AIChat;
-create table users
+create table users if
 (
     id       int auto_increment
         primary key,

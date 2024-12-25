@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5ebd3faf-5156-4e83-bb66-dc3af2513721" name="更改" comment="day3：新增模型表model，管理员表admin以及相关gongn">
+    <list default="true" id="5ebd3faf-5156-4e83-bb66-dc3af2513721" name="更改" comment="day3：新增模型表model，管理员表admin以及相关数据库操作的实现">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/9066be9e-33a0-4b95-a587-29288657ed65.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/9066be9e-33a0-4b95-a587-29288657ed65.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/sqlData/sql.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tests/sqlData/sql.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,6 +67,7 @@
     "Python.Model.executor": "Run",
     "Python.User.executor": "Run",
     "Python.UserModel.executor": "Run",
+    "Python.handleMsg.executor": "Run",
     "Python.logConfig.executor": "Run",
     "Python.sqltest.executor": "Run",
     "Python.test.executor": "Run",
@@ -101,7 +102,7 @@
       <recent name="G:\web-AI\APP" />
     </key>
   </component>
-  <component name="RunManager" selected="Flask 服务器.web-AI">
+  <component name="RunManager">
     <configuration name="generated-requests | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" requestIdentifier="#1">
       <method v="2" />
     </configuration>
@@ -156,7 +157,12 @@
       <workItem from="1734433562504" duration="4701000" />
       <workItem from="1734536030579" duration="4222000" />
       <workItem from="1734607521776" duration="3439000" />
-      <workItem from="1734622851860" duration="400000" />
+      <workItem from="1734622851860" duration="1121000" />
+      <workItem from="1734698969683" duration="859000" />
+      <workItem from="1734711280518" duration="498000" />
+      <workItem from="1734751513317" duration="12512000" />
+      <workItem from="1734937351967" duration="38000" />
+      <workItem from="1735037226337" duration="13336000" />
     </task>
     <task id="LOCAL-00001" summary="day 1: 实现了简单demo，确定了程序结构和目录">
       <option name="closed" value="true" />
@@ -198,7 +204,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734622909466</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="day3：新增模型表model，管理员表admin以及相关数据库操作的实现">
+      <option name="closed" value="true" />
+      <created>1734623260312</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1734623260312</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -227,12 +241,13 @@
     <MESSAGE value="day2: 进行了数据库测试，和登录注册功能测试" />
     <MESSAGE value="day2：进行了简单测试" />
     <MESSAGE value="day3：新增模型表model，管理员表admin以及相关gongn" />
-    <option name="LAST_COMMIT_MESSAGE" value="day3：新增模型表model，管理员表admin以及相关gongn" />
+    <MESSAGE value="day3：新增模型表model，管理员表admin以及相关数据库操作的实现" />
+    <option name="LAST_COMMIT_MESSAGE" value="day3：新增模型表model，管理员表admin以及相关数据库操作的实现" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/webai$test.coverage" NAME="test 覆盖结果" MODIFIED="1734541644395" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/APP" />
-    <SUITE FILE_PATH="coverage/webai$web_AI.coverage" NAME="web-AI 覆盖结果" MODIFIED="1734501240133" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Curriculum_design_project$User.coverage" NAME="User 覆盖结果" MODIFIED="1734435609827" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/APP/model/entity" />
+    <SUITE FILE_PATH="coverage/webai$test.coverage" NAME="test 覆盖结果" MODIFIED="1734541644395" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/APP" />
+    <SUITE FILE_PATH="coverage/webai$web_AI.coverage" NAME="web-AI 覆盖结果" MODIFIED="1735060853674" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/webai$Model.coverage" NAME="Model 覆盖结果" MODIFIED="1734622441389" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/APP/model/entity" />
     <SUITE FILE_PATH="coverage/web_AI$test.coverage" NAME="test 覆盖结果" MODIFIED="1734089429648" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/APP" />
     <SUITE FILE_PATH="coverage/webai$User.coverage" NAME="User 覆盖结果" MODIFIED="1734500822184" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/APP/model/entity" />
@@ -241,6 +256,7 @@
     <SUITE FILE_PATH="coverage/webai$logConfig.coverage" NAME="logConfig 覆盖结果" MODIFIED="1734500606838" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/APP/logs" />
     <SUITE FILE_PATH="coverage/webai$Flask__APP_app_py_.coverage" NAME="Flask (APP/app.py) 覆盖结果" MODIFIED="1734500712243" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/web_AI$web_AI.coverage" NAME="web-AI 覆盖结果" MODIFIED="1734273251586" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/webai$handleMsg.coverage" NAME="handleMsg 覆盖结果" MODIFIED="1735061864137" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/APP/views" />
     <SUITE FILE_PATH="coverage/Curriculum_design_project$web_AI.coverage" NAME="web-AI 覆盖结果" MODIFIED="1734441132693" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/webai$sqltest.coverage" NAME="sqltest 覆盖结果" MODIFIED="1734500361878" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/APP/model" />
     <SUITE FILE_PATH="coverage/webai$Admin.coverage" NAME="Admin 覆盖结果" MODIFIED="1734622249951" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/APP/model/entity" />

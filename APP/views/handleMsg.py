@@ -9,6 +9,7 @@ def getResponse(msg):
     response = client.chat.completions.create(
         model="glm-4-0520",  # 使用您需要调用的模型编码
         messages=[
+            {"role": "system", "content": '你是一位程序编写大师'},
             {"role": "user", "content": msg},
         ],
     )
@@ -24,3 +25,7 @@ def AIResponse(msg):
         string = msg
     # 使用传入的msg参数调用getResponse函数
     return getResponse(string)
+
+
+if __name__ == '__main__':
+    print(getResponse('能简单解释一下原神服务器的原理吗？'))

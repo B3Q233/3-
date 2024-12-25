@@ -8,7 +8,7 @@ Base = declarative_base()
 
 class Admin(Base):
     """
-    Administrator类用于表示系统中的管理员信息，对应数据库中的管理员表。
+    Admin类用于表示系统中的管理员信息，对应数据库中的管理员表。
 
     定义了管理员相关的属性以及与数据库表结构的映射关系，方便进行数据库操作。
     """
@@ -25,7 +25,7 @@ class Admin(Base):
 
     def __init__(self, administrator_id=None, administrator_name=None, password=None, email=None):
         """
-        初始化Administrator类实例。
+        初始化Admin类实例。
         参数:
         - administrator_id: 管理员的唯一标识符，整数类型，默认值为None，数据库操作时可自动递增生成。
         - administrator_name: 管理员的姓名，字符串类型
