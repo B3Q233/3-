@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>AI列表</title>
+    <style>
+        /* 设置图片大小为50x50 */
+        .news-image {
+            width: 50px;
+            height: 50px;
+        }
+        /* 设置表格行的统一高度 */
+        /* 设置表格行的统一高度 */
+        #newsTable tbody tr {
+            height: 70px;
+            line-height: 70px; /* 使内容垂直居中 */
+            vertical-align: middle;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        /* 确保每个单元格也应用相同的高度 */
+        #newsTable td {
+            height: 70px;
+            overflow: hidden;
+        }
+
+        /* 限制标题和内容列的文本显示 */
+        #newsTable td:nth-child(2), /* 标题列 */
+        #newsTable td:nth-child(3)  /* 内容列 */ {
+            white-space: nowrap; /* 不换行 */
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 150px; /* 适当宽度 */
+        }
+
+    </style>
+</head>
+<body>
+<div class="layui-container">
+    <h2>AI管理 <a class="layui-btn" href="addnews.jsp">添加AI</a></h2>
+    <table class="layui-table" id="newsTable">
+        <thead><tr><th>ID</th>
+            <th>AI名称</th>
+            <th>AI类别</th>
+            <th>发布日期</th>
+            <th>AI描述</th></tr></thead>
+        <tbody id="newsTableBody"></tbody>
+    </table>
+</div>
+
+<script>
+    $(document).ready(function() {
+        loadAIList();
+    });
+
+    function showError(msg) {
+        layui.use('layer', function () {
+            let layer = layui.layer;
+            layer.msg(msg); // 默认风格
+        });
+    }
+
+    function loadAIList() {
+        $.ajax({
+            type: "POST",
+            contentType: 'application/json',
+            url: 'AIList',
+            dataType: 'json',
+            success: function(response) {
+                if (response.code === 1) {
+                    const newsList = response.data;
+                    $('#newsTableBody').empty();
+                    for (let i in newsList) {
+                        let tr = '<tr>';
+                        tr += '<td>' + newsList[i].model_id + '</td>';
+                        tr += '<td>' + newsList[i].model_name + '</td>';
+                        tr += '<td>' + newsList[i].model_category + '</td>';
+                        tr += '<td>' + newsList[i].initial_text + '</td>';
+                        tr += '<button onclick="editNews(' + newsList[i].model_id + ')" class="layui-btn layui-btn-sm">修改</button>';
+                        tr += '<button onclick="deleteNews(' + newsList[i].model_id + ')" class="layui-btn layui-btn-danger layui-btn-sm">删除</button>';
+                        tr += '</td>';
+                        tr += '</tr>';
+                        $('#newsTableBody').append(tr);
+                    }
+                } else {
+                    showError(response.msg);
+                }
+            },
+            error: function() {
+                showError("请求失败，请稍后重试。");
+            }
+        });
+    }
+
+    function editNews(model_id) {
+        window.location.href = 'addAI.html?model_id=' + model_id;
+    }
+
+    function deleteNews(model_id) {
+        if (confirm("确定要删除这个模型吗？")) {
+            $.ajax({
+                type: "POST",
+                contentType: 'application/json',
+                url: 'DeleteAI',
+                data: { mopdel_id: model_id },
+                success: function(response) {
+                    if (response.code === 1) {
+                        showError("删除成功！");
+                        loadAIList();
+                    } else {
+                        showError(response.msg);
+                    }
+                },
+                error: function() {
+                    showError("请求失败，请稍后重试。");
+                }
+            });
+        }
+    }
+</script>
+</body>
+</html>

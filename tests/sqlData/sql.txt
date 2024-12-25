@@ -34,3 +34,6 @@ create table models
     model_category varchar(50)  not null,
     initial_text   varchar(500) not null
 );
+use aichat;
+insert into admin
+values(1, 'admin', 'admin123', 'admin@qq.com');

@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>用户信息列表</title>
+    <style>
+
+        body {
+            background-color: #e1fdf7;
+        }
+    /* 设置图片大小为50x50 */
+    .news-image {
+        width: 50px;
+        height: 50px;
+    }
+
+    /* 设置表格行的统一高度 */
+    #userTable tbody tr {
+        height: 80px; /* 增加行高 */
+        line-height: 80px; /* 使内容垂直居中 */
+        vertical-align: middle;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    /* 确保每个单元格也应用相同的高度 */
+    #userTable td {
+        height: 80px; /* 增加单元格高度 */
+        overflow: hidden;
+        padding: 10px; /* 增加单元格间距 */
+    }
+
+    /* 限制标题和内容列的文本显示 */
+    #userTable td:nth-child(2), /* 账户名列 */
+    #userTable td:nth-child(3), /* 邮箱列 */
+    #userTable td:nth-child(4), /* API Key列 */
+    #userTable td:nth-child(5), /* 密码列 */
+    #userTable td:nth-child(6)  /* 配额列 */ {
+        white-space: nowrap; /* 不换行 */
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 200px; /* 增加宽度 */
+        font-size: 16px; /* 增加字体大小 */
+    }
+
+    /* 表格头部样式 */
+    #userTable thead th {
+        background-color: #f8f8f8;
+        color: #333;
+        border-bottom: 2px solid #e6e6e6;
+        padding: 15px 0; /* 增加头部间距 */
+        font-size: 20px; /* 增加字体大小 */
+        font-weight: bold;
+        text-align: center;
+    }
+
+    /* 表格行交替颜色 */
+    #userTable tbody tr:nth-child(odd) {
+        background-color: #f9f9f9;
+    }
+
+    /* 表格边距和间距 */
+    .layui-container {
+        margin: 20px;
+        padding: 20px;
+        border: 1px solid #e6e6e6;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        width: 100%; /* 使容器占据整个宽度 */
+    }
+
+    /* 在线人数样式 */
+    #onlineCount {
+        font-size: 20px;
+        font-weight: bold;
+        margin: 20px;
+        margin-left: 0px;
+        color: #f60404;
+        display: inline-block;
+        position: absolute;
+        top: 0px;
+        left: 172px;
+        z-index: 999;
+    }
+
+    /* 删除按钮样式 */
+    .layui-btn-danger {
+        background-color: #f56c6c;
+        border-color: #f56c6c;
+        color: #fff;
+    }
+
+    .layui-btn-danger:hover {
+        background-color: #e25b5b;
+        border-color: #e25b5b;
+    }
+</style>
+
+
+</head>
+<body>
+<div class="layui-container">
+    <h2>用户信息管理</h2>
+    <div id="onlineCount"></div>
+    <table class="layui-table" id="userTable">
+        <thead>
+        <tr>
+            <th>用户名</th>
+            <th>邮箱</th>
+            <th>api_key</th>
+            <th>密码</th>
+            <th>配额</th>
+            <th>在线状态</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody id="userTableBody">
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $(document).ready(function() {
+        loadUsers();
+    });
+
+    function showError(msg) {
+        layui.use('layer', function () {
+            let layer = layui.layer;
+            layer.msg(msg); // 默认风格
+        });
+    }
+
+    function loadUsers() {
+    $.ajax({
+        type: "POST",
+        contentType: 'application/json',
+        url: 'UserList',
+        dataType: 'json',
+        success: function(response) {
+            if (response.code === 1) {
+                const userList = response.data;
+                let onlineCount = 0; // 初始化在线人数计数器
+                // 计算在线人数
+                for (let i in userList) {
+                    if (userList[i].online_status) {
+                        onlineCount++;
+                    }
+                }
+                // 显示在线人数
+                $('#onlineCount').text('在线总人数: ' + onlineCount);
+                $('#userTableBody').empty();
+                for (let i in userList) {
+                    let tr = '<tr>';
+                    tr += '<td>' + userList[i].username + '</td>';
+                    tr += '<td>' + userList[i].email + '</td>';
+                    tr += '<td>' + userList[i].api_key + '</td>';
+                    tr += '<td>' + userList[i].password + '</td>';
+                    tr += '<td>' + userList[i].quota + '</td>';
+                    tr += '<td>' + (userList[i].online_status ? '在线' : '离线') + '</td>';
+                    tr += '<td>';
+                    tr += '<button onclick="deleteUser(\'' + userList[i].username + '\')" class="layui-btn layui-btn-danger layui-btn-sm">删除</button>';
+                    tr += '<button onclick="strongUser(\'' + userList[i].username + '\')" class="layui-btn layui-btn-danger layui-btn-sm">升为管理员</button>';
+                    tr += '</td>';
+                    tr += '</tr>';
+                    $('#userTableBody').append(tr);
+                }
+            } else {
+                showError(response.msg);
+            }
+        },
+        error: function() {
+            showError("请求失败，请稍后重试。");
+        }
+    });
+}
+    function deleteUser(username) {
+        if (confirm("确定要删除这个用户吗？")) {
+            $.ajax({
+                url: 'DeleteUserServlet',
+                type: 'POST',
+                data: { username: username },
+                success: function(response) {
+                    if (response.status === 1) {
+                        showError("删除成功！");
+                        loadUsers();
+                    } else {
+                        showError(response.msg);
+                    }
+                },
+                error: function() {
+                    showError("请求失败，请稍后重试。");
+                }
+            });
+        }
+    }
+</script>
+</body>
+</html>
