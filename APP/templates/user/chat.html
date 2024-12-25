@@ -1,105 +1,194 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
     <meta charset="utf-8">
     <title>Chat UI with Layui</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/layui-src/dist/css/layui.css" media="all">
-</head>
-<style>
-     body {
-            display: flex;
-            width: auto;
-            min-width: 90%;
-            align-items: center; /* 垂直居中 */
-            min-height: 100vh; /* 确保页面高度至少占满视口高度 */
+    <style>
+        /* 去除body原有的一些布局相关样式设置 */
+        body {
+            background-color: #ffffff; /* 将body背景色改为白色 */
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
         }
-</style>
+
+        /* 聊天容器，设置宽度、高度、背景、边框、圆角等样式，使其更具立体感和美观性，让其能填充父容器（也就是layui-body） */
+    .layui-container {
+            width: 100%;
+            height: 100%;
+            background-color: #f9f9f9; /* 容器背景色改为浅灰色，稍显柔和 */
+            border: 1px solid #e6e6e6; /* 边框颜色保持浅灰色 */
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+
+        /* 聊天内容展示区域，设置内边距、溢出处理及滚动条样式，让聊天消息显示更规整美观，使其能自动填充剩余空间 */
+    .layui-card-body {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #ccc #f9f9f9; /* 滚动条颜色适配背景 */
+            background-color: #f9f9f9; /* 内容展示区域背景色与容器一致 */
+        }
+
+        /* 针对不同浏览器自定义滚动条样式（WebKit 内核浏览器，如 Chrome、Safari 等） */
+    .layui-card-body::-webkit-scrollbar {
+            width: 8px;
+        }
+
+    .layui-card-body::-webkit-scrollbar-track {
+            background-color: #f9f9f9; /* 滚动条轨道颜色与内容展示区背景一致 */
+        }
+
+    .layui-card-body::-webkit-scrollbar-thumb {
+            background-color: #ccc; /* 滚动条滑块颜色为浅灰色 */
+            border-radius: 4px;
+        }
+
+        /* 聊天消息样式，区分不同发送者，设置不同的颜色、边距等，增强可读性 */
+    .chat-message {
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            border-radius: 4px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+
+    .chat-message.you {
+            background-color: #e6f7ff; /* 发送者消息背景色为浅蓝色，清新感 */
+            color: #0056b3; /* 文字颜色与背景搭配协调 */
+            align-self: flex-end;
+        }
+
+        /* 接收者消息背景色调浅，与整体风格适配 */
+    .chat-message.gpt {
+            background-color: #f0f0f0;
+            color: #333;
+            align-self: flex-start;
+        }
+
+        /* 聊天输入框区域，设置内边距、背景色等，使其与整体风格协调 */
+    .layui-card-footer {
+            padding: 15px;
+            background-color: #f9f9f9; /* 输入框区域背景色与容器一致 */
+        }
+
+        /* 输入框样式，设置宽度、高度、边框、圆角等，使其更加美观 */
+    .layui-input {
+            width: 100%;
+            height: 40px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 0 10px;
+            background-color: white; /* 输入框背景色为白色 */
+            color: #333; /* 输入框文字颜色为深灰色 */
+        }
+
+        /* 发送按钮样式，设置背景色、文字颜色、鼠标悬停效果等，提升交互性 */
+    .layui-btn {
+            background-color: #16baaa; /* 发送按钮背景色为主题色 */
+            color: white; /* 文字颜色为白色 */
+            height: 40px;
+            line-height: 40px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        /* 按钮悬停时背景色稍变深，体现交互效果 */
+    .layui-btn:hover {
+            background-color: #009688;
+        }
+    </style>
+</head>
+
 <body>
 
-<div class="layui-container" >
-    <div class="layui-row">
-        <div class="layui-col-md12">
-            <div class="layui-card">
-                <div class="layui-card-header">Chat Room</div>
-                <div class="layui-card-body" style="height: 300px; overflow-y: auto;">
-                    <!-- 聊天内容展示区域 -->
-                    <div id="chat-messages"></div>
-                </div>
-                <div class="layui-card-footer">
-                    <form class="layui-form" action="" onsubmit="return false;">
-                        <div class="layui-form-item">
-                            <div class="layui-input-inline" style="width: 80%;">
-                                <input type="text" name="message" required lay-verify="required" placeholder="请输入..." autocomplete="off" class="layui-input">
+    <div class="layui-container">
+        <div class="layui-row">
+            <div class="layui-col-md12">
+                <div class="layui-card">
+                    <div class="layui-card-body">
+                        <!-- 聊天内容展示区域 -->
+                        <div id="chat-messages" style="height: 560px;"></div>
+                    </div>
+                    <div class="layui-card-footer">
+                        <form class="layui-form" action="" onsubmit="return false;">
+                            <div class="layui-form-item">
+                                <div class="layui-input-inline" style="width: 80%;">
+                                    <input type="text" name="message" required lay-verify="required" placeholder="请输入消息..."
+                                        autocomplete="off" class="layui-input">
+                                </div>
+                                <div class="layui-input-inline" style="width: 15%;">
+                                    <button class="layui-btn" lay-submit lay-filter="sendMessage">发送</button>
+                                </div>
                             </div>
-                            <div class="layui-input-inline" style="width: 15%;">
-                                <button class="layui-btn" lay-submit lay-filter="sendMessage">Send</button>
-                            </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/layui-src/dist/layui.all.js"></script>
-<script>
-     // 显示消息函数
-    function displayMessage(username, message) {
-        let chatMessages = document.getElementById('chat-messages');
-        let newMessage = document.createElement('div');
-        newMessage.innerHTML = `<strong>${username}:</strong>${message}`;
-        chatMessages.appendChild(newMessage);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
-</script>
-<script>
-    function sendMsg(msg){
-         layui.use(['jquery', 'layer'], function() {
-             let $ = layui.jquery;
-             let layer = layui.layer;
-             console.log(msg)
-             // 发送AJAX请求
-             $.ajax({
-                 url: '/getMsg',
-                 type: 'POST',
-                 contentType: 'application/json',
-                 data: msg,
-                 success: function (response) {
-                     displayMessage('gpt',response)
-                 },
-                 error: function (xhr, status, error) {
-                     console.error('AJAX请求失败:', error);
-                 }
-             });
-         });
-    }
-</script>
-<script>
-    function hideScrollbar() {
-        const chatMessages = document.getElementById('chat-messages');
-        chatMessages.style.overflowY = 'hidden';
-    }
-    // 可以在合适的地方调用这个函数，比如页面加载完成后调用
-    window.onload = function () {
-        hideScrollbar();
-    };
+    <script>
+        // 显示消息函数，添加类名来区分不同发送者的消息样式
+        function displayMessage(username, message) {
+            let chatMessages = document.getElementById('chat-messages');
+            let newMessage = document.createElement('div');
+            newMessage.className = `chat-message ${username === 'You'? 'you' : 'gpt'}`;
+            newMessage.innerHTML = `<strong>${username}:</strong> ${message}`;
+            chatMessages.appendChild(newMessage);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+    </script>
+    <script>
+        function sendMsg(msg) {
+            layui.use(['jquery', 'layer'], function () {
+                let $ = layui.jquery;
+                let layer = layui.layer;
+                console.log(msg)
+                // 发送AJAX请求
+                $.ajax({
+                    url: '/getMsg',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: msg,
+                    success: function (response) {
+                        displayMessage('gpt', response);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('AJAX请求失败:', error);
+                    }
+                });
+            });
+        }
+    </script>
+    <script>
+        // 移除了hideScrollbar函数，利用CSS样式来控制滚动条的显示与隐藏以及样式呈现
 
-layui.use(['form'], function(){
-    let form = layui.form;
+        // 监听表单提交事件
+        layui.use(['form'], function () {
+            let form = layui.form;
 
-    // 监听发送消息按钮
-    form.on('submit(sendMessage)', function(data){
-        let message = data.field.message;
-        sendMsg(message)
-        // 显示消息
-        displayMessage('You', message);
-        // 清空输入框
-        data.field.message = '';
-        return false;
-    });
-});
-</script>
+            // 监听发送消息按钮
+            form.on('submit(sendMessage)', function (data) {
+                let message = data.field.message;
+                sendMsg(message);
+                // 显示消息
+                displayMessage('You', message);
+                // 清空输入框
+                $('input[name="message"]').val('');
+                return false;
+            });
+        });
+    </script>
 
 </body>
+
 </html>

@@ -72,6 +72,43 @@ def user_register_check2():
         ret_msg = {'msg': msg, 'status': status}
         return json.dumps(ret_msg)
 
+# 主页面
+@app.route('/user/user_main.html', methods=['GET', 'POST'])
+def user_main(name=None):
+    return render_template('/user/user_main.html')
+
+
+@app.route('/user/chat.html', methods=['GET', 'POST'])
+def chat(name=None):
+    return render_template('/user/chat.html')
+
+@app.route('/user/user_msg.html', methods=['GET', 'POST'])
+def user_msg(name=None):
+    return render_template('/user/user_msg.html')
+
+@app.route('/admin/admin_main.html', methods=['GET', 'POST'])
+def admin_main(name=None):
+    return render_template('/admin/admin_main.html')
+
+@app.route('/admin/manageuser.html', methods=['GET', 'POST'])
+def manageuser(name=None):
+    return render_template('/admin/manageuser.html')
+
+@app.route('/admin/manageai.html', methods=['GET', 'POST'])
+def manageai(name=None):
+    return render_template('/admin/manageai.html')
+
+@app.route('/admin/manageweb.html', methods=['GET', 'POST'])
+def manageweb(name=None):
+    return render_template('/admin/manageweb.html')
+
+@app.route('/admin/addAI.html', methods=['GET', 'POST'])
+def addAI(name=None):
+    return render_template('/admin/addAI.html')
+
+@app.route('/admin/admin_msg.html', methods=['GET', 'POST'])
+def admin_msg(name=None):
+    return render_template('/admin/admin_msg.html')
 
 if __name__ == '__main__':
     app.run()

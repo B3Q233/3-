@@ -6,10 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>用户注册</title>
     <link rel="stylesheet" href="../static/css/user_register.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/layui-src/dist/css/layui.css" media="all">
-    <script src="https://cdn.jsdelivr.net/npm/layui-src/dist/layui.all.js"></script>
+    <link rel="stylesheet" href="../static/layui/css/layui.css" media="all">
+    <script src="../static/layui/layui.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  <!-- 引入jQuery库，方便使用Ajax -->
-
 </head>
 <body>
     <div class="box">
@@ -79,12 +78,13 @@
                 success: function (response) {
                     if(response.status === 1){
                         showError(response.msg);
-                        window.location.href = "index.html";
+                        window.location.href = "login.html";
+                    }else {
+                        showError(response.msg);
                     }
-                     showError(response.msg);
                 },
                 error: function () {
-                    alert("请求发生错误，请稍后再试");
+                    showError("请求发生错误，请稍后再试");
                 }
             });
             return false;  // 阻止表单默认提交行为，因为使用了Ajax提交

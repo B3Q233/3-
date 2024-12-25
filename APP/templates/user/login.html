@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,13 +11,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/layui-src/dist/css/layui.css" media="all">
     <script src="https://cdn.jsdelivr.net/npm/layui-src/dist/layui.all.js"></script>
 </head>
+
 <body>
     <div class="box">
         <h2>用户登录</h2>
         <form name="userloginForm" onsubmit="return validateForm()" method="post">
             <div class="input-box">
                 <label>账号</label>
-                <input type="text" name="username">
+                <input type="text" id="usernameInput" name="username"> <!-- 添加id属性，方便后续获取值 -->
             </div>
             <div class="input-box">
                 <label>密码</label>
@@ -32,51 +34,56 @@
         </form>
     </div>
 </body>
+
 <script>
-    function showError(msg){
-            layui.use('layer', function(){
+    function showError(msg) {
+        layui.use('layer', function () {
             let layer = layui.layer;
-             layer.msg(msg); // 默认风格
-            });
+            layer.msg(msg); // 默认风格
+        });
+    }
+
+    function validateForm() {
+        let username = document.getElementById("usernameInput").value; // 通过id获取账号值
+        let password = document.forms["userloginForm"]["password"].value;
+        let usernameRegex = /^[a-zA-Z]{3,}$/;
+        let passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/;
+
+        if (username === "" || username == null) {
+            alert("账号不能为空");
+            return false;
         }
-        function validateForm() {
-            let username = document.forms["userloginForm"]["username"].value;
-            let password = document.forms["userloginForm"]["password"].value;
-            let usernameRegex = /^[a-zA-Z]{3,}$/;
-            let passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/;
 
-            if (username === ""||username == null) {
-                alert("账号不能为空");
-                return false;
-            }
+        if (password === "" || password == null) {
+            alert("密码不能为空");
+            return false;
+        }
 
-            if (password === ""||password == null) {
-                alert("密码不能为空");
-                return false;
-            }
-
-            // 格式验证通过后，使用Ajax发送数据到后端
-            $.ajax({
-                type: "POST",
-                contentType: 'application/json',
-                url: "/user_login_check",  // 后端验证登录的接口地址，需根据实际情况修改
-                data: {
-                    username: username,
-                    password: password
-                },
-                dataType: "json",
-                success: function (response) {
-                    if(response.status === 1){
-                        showError(response.msg);
-                        window.location.href = "index.html";
-                    }
-                     showError(response.msg);
-                },
-                error: function () {
-                    alert("请求发生错误，请稍后再试");
+        // 格式验证通过后，使用Ajax发送数据到后端
+        $.ajax({
+            type: "POST",
+            contentType: 'application/json',
+            url: "/user_login_check",  // 后端验证登录的接口地址，需根据实际情况修改
+            data: {
+                username: username,
+                password: password
+            },
+            dataType: "json",
+            success: function (response) {
+                if (response.status === 1) {
+                    showError(response.msg);
+                    // 将用户名存储到localStorage中，方便在user_main页面获取使用
+                    localStorage.setItem("loggedInUsername", username);
+                    window.location.href = "user_main.html";
                 }
-            });
-            return false;  // 阻止表单默认提交行为，因为使用了Ajax提交
-        }
-    </script>
+                showError(response.msg);
+            },
+            error: function () {
+                alert("请求发生错误，请稍后再试");
+            }
+        });
+        return false;  // 阻止表单默认提交行为，因为使用了Ajax提交
+    }
+</script>
+
 </html>
