@@ -50,12 +50,12 @@
         let passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/;
 
         if (username === "" || username == null) {
-            alert("账号不能为空");
+            showError("账号不能为空");
             return false;
         }
 
         if (password === "" || password == null) {
-            alert("密码不能为空");
+            showError("密码不能为空");
             return false;
         }
 

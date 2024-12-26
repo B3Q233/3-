@@ -90,3 +90,17 @@ def update_admin_info(admin_id, updated_admin_data):
         logging.error(f"在根据管理员id更新管理员信息时出现错误，管理员id: {admin_id}，错误信息: {e}", exc_info=True)
     finally:
         session.close()
+
+
+def find_admin_by_name(admin_name):
+    """
+    根据管理员名称查找管理员信息
+    """
+    session = get_session()
+    try:
+        admin = session.query(Admin).filter(Admin.admin_name == admin_name).first()
+        return admin
+    except Exception as e:
+        logging.error(f"在根据管理员名称查找管理员信息时出现错误，管理员名称: {admin_name}，错误信息: {e}", exc_info=True)
+    finally:
+        session.close()

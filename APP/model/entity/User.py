@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, String, Index
 from sqlalchemy.orm import declarative_base
+
 from APP.model import sqltest
 
 Base = declarative_base()
@@ -15,24 +16,39 @@ class User(Base):
     username = Column(String(20), nullable=False, unique=True)
     quota = Column(Integer)
 
-    __table_args__ = (
-        Index('ix_unique_users_id', id, unique=True),
-    )
 
     __mapper_args__ = {
         'primary_key': [id],
     }
 
-    def __init__(self, id=None, email=None, api_key=None, password=None, username=None, quota=None):
-        self.id = id
+    def __init__(self, email=None, api_key=None, password=None, username=None, quota=None):
         self.email = email
         self.api_key = api_key
         self.password = password
         self.username = username
         self.quota = quota
 
+    def to_dict(self):
+        """
+        将User实例转换为字典。
+
+        返回:
+        - 一个包含用户属性的字典。
+        """
+        return {
+            'id': self.id,
+            'email': self.email,
+            'api_key': self.api_key,
+            'password': self.password,
+            'username': self.username,
+            'quota': self.quota
+        }
 
 if __name__ == '__main__':
-    u = User()
+    # 创建数据库表
     Base.metadata.create_all(sqltest.engine)
-    pass
+
+    # 创建User实例并转换为字典
+    user_instance = User(email='example@example.com', api_key='api_key_here', password='password123', username='username', quota=1000)
+    user_dict = user_instance.to_dict()
+    print(user_dict)

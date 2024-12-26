@@ -4,6 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <title>用户信息列表</title>
+    <link rel="stylesheet" href="../static/css/login.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  <!-- 引入jQuery库，方便使用Ajax -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/layui-src/dist/css/layui.css" media="all">
+    <script src="https://cdn.jsdelivr.net/npm/layui-src/dist/layui.all.js"></script>
     <style>
 
         body {
@@ -136,10 +140,10 @@
     $.ajax({
         type: "POST",
         contentType: 'application/json',
-        url: 'UserList',
+        url: 'get_user_List',
         dataType: 'json',
         success: function(response) {
-            if (response.code === 1) {
+            if (response.status === 1) {
                 const userList = response.data;
                 let onlineCount = 0; // 初始化在线人数计数器
                 // 计算在线人数

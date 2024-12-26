@@ -13,6 +13,7 @@ logging.basicConfig(
     filemode='a'  # 追加模式，每次记录日志在文件末尾添加
 )
 
+
 def find_user_by_id(user_id):
     """
     根据用户id查找用户信息
@@ -87,3 +88,22 @@ def find_user_by_username(username):
     finally:
         session.close()
 
+
+def find_all_users():
+    """
+        查找所有用户
+    """
+    session = get_session()
+    try:
+        users = session.query(User).all()
+        return users
+    except Exception as e:
+        logging.error(f"在查找所有用户信息时出现错误，错误信息: {e}", exc_info=True)
+    finally:
+        session.close()
+
+
+if __name__ == '__main__':
+    users = find_all_users()
+    for user in users:
+        print(user.to_dict())

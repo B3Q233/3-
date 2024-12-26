@@ -1,21 +1,41 @@
-from APP.model.operation.UserModel import *
+import json
+
+from APP.model.service.UserService import *
+from urllib.parse import unquote, parse_qs
 
 
-def user_register_check(new_user):
-    if find_user_by_username(new_user.username) is not None:
-        return '注册失败,用户名已经存在',False
-    if find_user_by_email(new_user.email) is not None:
-        return '注册失败,邮箱已经注册',False
-    new_user.api_key = 'e7d7fe0a829e0872b438334405c37a8c.xRof5ICQsaRtFf6u'
-    new_user.quota = 100
-    insert_user(new_user)
-    return '注册成功',True
+# 用户登录
+def login_check(request):
+    decoded_data = request.data.decode('utf-8')
+    # 解析查询字符串
+    parsed_data = parse_qs(decoded_data)
+    # 获取属性值
+    username = parsed_data['username'][0]
+    password = parsed_data['password'][0]
+    new_user = User(username=username, password=password)
+    msg, status = user_login_check(new_user)
+    if status:
+        status = 1
+    else:
+        status = 0
+    ret_msg = {'msg': msg, 'status': status}
+    return json.dumps(ret_msg)
 
 
-def user_login_check(new_user):
-    get_user = find_user_by_username(new_user.username)
-    if get_user is None:
-        return '登陆失败，用户名不存在',False
-    if get_user.password != new_user.password:
-        return '登陆失败，密码错误',False
-    return '登陆成功',True
+# 用户注册
+def register_check(request):
+    decoded_data = request.data.decode('utf-8')
+    # 解析查询字符串
+    parsed_data = parse_qs(decoded_data)
+    # 获取属性值
+    username = parsed_data['username'][0]
+    email = unquote(parsed_data['email'][0])
+    password = parsed_data['password'][0]
+    new_user = User(username=username, password=password, email=email)
+    msg, status = user_register_check(new_user)
+    if status:
+        status = 1
+    else:
+        status = 0
+    ret_msg = {'msg': msg, 'status': status}
+    return json.dumps(ret_msg)

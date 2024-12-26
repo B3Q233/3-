@@ -6,9 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>管理员页面</title>
-    <link rel="stylesheet" href="../static/layui/css/layui.css" media="all">
-    <script src="../static/layui/layui.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="../static/css/login.css">
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  <!-- 引入jQuery库，方便使用Ajax -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/layui-src/dist/css/layui.css" media="all">
+    <script src="https://cdn.jsdelivr.net/npm/layui-src/dist/layui.all.js"></script>
     <script>
     </script>
 </head>
@@ -41,9 +42,9 @@
                     <li class="layui-nav-item layui-nav-itemed">
                         <a href="javascript:;">管理网站</a>
                         <dl class="layui-nav-child">
-                            <dd><a href="javascript:;" data-url="manageuser.html">用户管理</a></dd>
-                            <dd><a href="javascript:;" data-url="manageai.html">AI管理</a></dd>
-                            <dd><a href="javascript:;" data-url="manageseb.html">网站详情管理</a></dd>
+                            <dd><a href="javascript:;" data-url="manage_user.html">用户管理</a></dd>
+                            <dd><a href="javascript:;" data-url="manage_ai.html">AI管理</a></dd>
+                            <dd><a href="javascript:;" data-url="manage_web.html">网站详情管理</a></dd>
                         </dl>
                     </li>
                 </ul>
@@ -62,17 +63,17 @@
     <script>
 
         window.onload = function () {
-            var loggedInUsername = localStorage.getItem("loggedInUsername");
+             let loggedInUsername = localStorage.getItem("loggedInUsername");
             if (loggedInUsername) {
                 // 替换导航栏中的账户名显示
-                var userNavItem = document.querySelector('.layui-nav-item.layui-show-md-inline-block');
+                 let userNavItem = document.querySelector('.layui-nav-item.layui-show-md-inline-block');
                 if (userNavItem) {
-                    var userLink = userNavItem.querySelector('a');
+                     let userLink = userNavItem.querySelector('a');
                     if (userLink) {
                         userLink.innerHTML = '<img src="../static/images/logo.png" class="layui-nav-img">' + loggedInUsername;
                     }
                 }
-                var welcomeTextElement = document.getElementById('main-content').querySelector('h2');
+                 let welcomeTextElement = document.getElementById('main-content').querySelector('h2');
                 if (welcomeTextElement) {
                     welcomeTextElement.innerHTML = '尊敬的管理员' + loggedInUsername + '，欢迎您进入全视AI后台管理页面';
                 }
@@ -80,7 +81,7 @@
         };
 
         layui.use(['element', 'layer', 'util'], function () {
-            var element = layui.element
+             let element = layui.element
                , layer1 = layui.layer
                , util = layui.util
                , $ = layui.$;
@@ -102,10 +103,10 @@
             });
 
             layui.use(['jquery'], function () {
-                var $ = layui.jquery;
+                 let $ = layui.jquery;
 
                 $('.layui-nav-child a').on('click', function () {
-                    var url = $(this).data('url');
+                     let url = $(this).data('url');
                     if (url) {
                         $('#main-content').load(url);  // 使用 AJAX 加载指定页面内容到主体区域
                     }

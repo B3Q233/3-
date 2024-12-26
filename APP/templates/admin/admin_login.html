@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>登录</title>
     <link rel="stylesheet" href="../static/css/login.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  <!-- 引入jQuery库，方便使用Ajax -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/layui-src/dist/css/layui.css" media="all">
+    <script src="https://cdn.jsdelivr.net/npm/layui-src/dist/layui.all.js"></script>
 </head>
 <body>
     <div class="box">
@@ -22,27 +25,32 @@
             <div class="btn-box">
                 <a href="../user/login.html">用户登陆</a>
                 <div>
-                    <button type="submit">登录</button>
-{#                    <button type="button">注册</button>#}
+                    <button type="submit" onclick="validateForm()">登录</button>
                 </div>
             </div>
         </form>
     </div>
 </body>
 <script>
+        function showError(msg) {
+        layui.use('layer', function () {
+            let layer = layui.layer;
+            layer.msg(msg); // 默认风格
+        });
+        }
         function validateForm() {
-            var username = document.forms["userloginForm"]["username"].value;
-            var password = document.forms["userloginForm"]["password"].value;
-            var usernameRegex = /^[a-zA-Z]{3,}$/;
-            var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/;
+            let username = document.forms["adminloginForm"]["username"].value;
+            let password = document.forms["adminloginForm"]["password"].value;
+            let usernameRegex = /^[a-zA-Z]{3,}$/;
+            let passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/;
 
-            if (!usernameRegex.test(username)||username.length == 0) {
-                showError("账号格式错误：必须是3个及以上的英文字母");
+            if (username.length === 0) {
+                showError("账号不能为空");
                 return false;
             }
 
-            if (!passwordRegex.test(password)||password.length == 0) {
-                showError("密码格式错误：必须是6~12位，必须包含英文和数字");
+            if (password.length === 0) {
+                showError("密码不能为空");
                 return false;
             }
 

@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import declarative_base
 
+# 假设sqltest模块已经定义了engine
 from APP.model import sqltest
 
 Base = declarative_base()
@@ -23,22 +24,37 @@ class Admin(Base):
     # 定义邮箱字段
     email = Column(String(20), nullable=False)
 
-    def __init__(self, administrator_id=None, administrator_name=None, password=None, email=None):
+    def __init__(self, admin_id=None, admin_name=None, password=None, email=None):
         """
         初始化Admin类实例。
         参数:
-        - administrator_id: 管理员的唯一标识符，整数类型，默认值为None，数据库操作时可自动递增生成。
-        - administrator_name: 管理员的姓名，字符串类型
+        - admin_id: 管理员的唯一标识符，整数类型，默认值为None，数据库操作时可自动递增生成。
+        - admin_name: 管理员的姓名，字符串类型
         - password: 管理员的密码，字符串类型
         - email: 管理员的邮箱地址，字符串类型
         """
-        self.administrator_id = administrator_id
-        self.administrator_name = administrator_name
+        self.admin_id = admin_id
+        self.admin_name = admin_name
         self.password = password
         self.email = email
 
+    def to_dict(self):
+        """
+        将Admin实例转换为字典。
+        """
+        return {
+            'admin_id': self.admin_id,
+            'admin_name': self.admin_name,
+            'password': self.password,
+            'email': self.email
+        }
+
 
 if __name__ == '__main__':
-    u = Admin()
+    # 创建数据库表
     Base.metadata.create_all(sqltest.engine)
-    pass
+
+    # 创建一个Admin实例并转换为字典
+    admin_instance = Admin(admin_name='John Doe', password='password123', email='john@example.com')
+    admin_dict = admin_instance.to_dict()
+    print(admin_dict)
