@@ -4,10 +4,6 @@
 <head>
     <meta charset="utf-8">
     <title>Chat UI with Layui</title>
-    <link rel="stylesheet" href="../static/css/login.css">
-    <script src="../static/js/jquery-3.5.1.js"></script>
-    <link rel="stylesheet" href="../static/layui/layui.js" media="all">
-    <script src="../static/layui/css/layui.css"></script>
     <style>
         /* 去除body原有的一些布局相关样式设置 */
         body {
@@ -159,7 +155,7 @@
                 console.log(msg)
                 // 发送AJAX请求
                 $.ajax({
-                    url: '/getMsg',
+                    url: '/AI_chat',
                     type: 'POST',
                     contentType: 'application/json',
                     data: msg,

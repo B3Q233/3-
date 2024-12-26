@@ -1,18 +1,13 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>全视AI</title>
-
-    <link rel="stylesheet" href="../static/css/login.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  <!-- 引入jQuery库，方便使用Ajax -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/layui-src/dist/css/layui.css" media="all">
-    <script src="https://cdn.jsdelivr.net/npm/layui-src/dist/layui.all.js"></script>
-    <script>
-    </script>
+    <link rel="stylesheet" href="../static/layui/css/layui.css" media="all">
+    <script src="../static/js/jquery-3.5.1.js"></script>
+    <script src="../static/layui/layui.js"></script>
 </head>
 
 <body>
@@ -65,7 +60,7 @@
 
     <script>
 
-               window.onload = function () {
+        window.onload = function () {
             var loggedInUsername = localStorage.getItem("loggedInUsername");
             if (loggedInUsername) {
                 // 替换导航栏中的账户名显示
