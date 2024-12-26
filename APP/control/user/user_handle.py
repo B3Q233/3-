@@ -1,5 +1,7 @@
 import json
 from flask import session
+from APP.model.entity.User import *
+from APP.model.service import UserService
 from APP.model.service.UserService import *
 from urllib.parse import unquote, parse_qs
 
@@ -13,7 +15,7 @@ def login_check(request):
     username = parsed_data.get('username')[0]
     password = parsed_data.get('password')[0]
     new_user = User(username=username, password=password)
-    msg, status = user_login_check(new_user)
+    msg, status = UserService.user_login_check(new_user)
     if status:
         status = 1
     else:

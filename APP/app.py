@@ -10,7 +10,8 @@ from flask import session
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=1)
-
+online_user = {}
+session['online_user'] = online_user
 
 
 # 管理员
@@ -68,6 +69,7 @@ def admin_msg():
 @app.route('/admin/get_user_List', methods=['GET', 'POST'])
 def get_user_List():
     if request.method == 'POST':
+        print(admin_handle.get_users())
         return admin_handle.get_users()
 
 
@@ -110,9 +112,12 @@ def user_login_check():
 # 用户登出
 @app.route('/user_sign_out', methods=['GET', 'POST'])
 def user_sign_out():
+    print(online_user)
     user_id = session.get('user_id')
     if user_id:
-        session.pop('user_id', None)
+        online_user.pop(str(user_id))
+        print("pop")
+        print(online_user)
         return 'User {} has been logged out.'.format(user_id)
     else:
         return 'No user is logged in.'

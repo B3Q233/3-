@@ -104,6 +104,4 @@ def find_all_users():
 
 
 if __name__ == '__main__':
-    users = find_all_users()
-    for user in users:
-        print(user.to_dict())
+    insert_user(User(username='bbqq', email='<EMAIL>',password='dnddm543',api_key='123',quota='1231'))

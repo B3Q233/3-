@@ -1,5 +1,6 @@
 import json
 from flask import session
+from APP.app import online_user
 
 from APP.model.operation.UserModel import *
 from APP.utils.tool import *
@@ -27,22 +28,26 @@ def user_login_check(new_user):
         return '登陆失败，用户名不存在', False
     if get_user.password != new_user.password:
         return '登陆失败，密码错误', False
-    print(session.get('user_id'))
-    if session.get('user_id') is None:
-        session['user_id'] = get_user.id
-        return '登陆成功', True
-    return '该账号已经登录，请先注销',False
-
-
+    if online_user.get(str(get_user.id)) is not None:
+        return '该账户已经登录，请先注销', False
+    session['user_id'] = get_user.id
+    online_user[str(get_user.id)] = 1
+    return '登陆成功', True
 
 
 # 获取全部用户
 
 def get_all_users():
+    print(online_user)
     user_list = []
     users = find_all_users()
     for user in users:
-        user_list.append(user.to_dict())
+        user_dict = user.to_dict()
+        if online_user.get(str(user.id)) is not None:
+            user_dict['online_status'] = True
+        else:
+            user_dict['online_status'] = False
+        user_list.append(user_dict)
     return user_list
 
 
