@@ -16,7 +16,6 @@ class User(Base):
     username = Column(String(20), nullable=False, unique=True)
     quota = Column(Integer)
 
-
     __mapper_args__ = {
         'primary_key': [id],
     }
@@ -44,11 +43,13 @@ class User(Base):
             'quota': self.quota
         }
 
+
 if __name__ == '__main__':
     # 创建数据库表
     Base.metadata.create_all(sqltest.engine)
 
     # 创建User实例并转换为字典
-    user_instance = User(email='example@example.com', api_key='api_key_here', password='password123', username='username', quota=1000)
+    user_instance = User(email='example@example.com', api_key='api_key_here', password='password123',
+                         username='username', quota=1000)
     user_dict = user_instance.to_dict()
     print(user_dict)

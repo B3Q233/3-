@@ -1,4 +1,5 @@
 import re
+from urllib.parse import unquote, parse_qs
 
 # 正则表达式常量
 NAME_REGEX = r"^[a-zA-Z]{3,}$"
@@ -17,3 +18,11 @@ def validate_password(password):
 
 def validate_email(email):
     return re.match(EMAIL_REGEX, email) is not None
+
+
+# 解析数据
+def parse_data(request):
+    decoded_data = request.data.decode('utf-8')
+    # 解析查询字符串
+    parsed_data = parse_qs(decoded_data)
+    return parsed_data

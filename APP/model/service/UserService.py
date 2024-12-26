@@ -1,4 +1,5 @@
 import json
+from flask import session
 
 from APP.model.operation.UserModel import *
 from APP.utils.tool import *
@@ -26,7 +27,13 @@ def user_login_check(new_user):
         return '登陆失败，用户名不存在', False
     if get_user.password != new_user.password:
         return '登陆失败，密码错误', False
-    return '登陆成功', True
+    print(session.get('user_id'))
+    if session.get('user_id') is None:
+        session['user_id'] = get_user.id
+        return '登陆成功', True
+    return '该账号已经登录，请先注销',False
+
+
 
 
 # 获取全部用户
@@ -40,4 +47,4 @@ def get_all_users():
 
 
 if __name__ == '__main__':
-    get_all_users()
+    print(get_all_users())

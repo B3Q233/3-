@@ -1,9 +1,16 @@
+import os
+from datetime import timedelta
+
 from flask import Flask, request, render_template
 import APP.views.handleMsg
 from APP.control.admin import admin_handle
 from APP.control.user import user_handle
+from flask import session
 
 app = Flask(__name__)
+app.secret_key = os.urandom(24)
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=1)
+
 
 
 # 管理员
@@ -61,7 +68,6 @@ def admin_msg():
 @app.route('/admin/get_user_List', methods=['GET', 'POST'])
 def get_user_List():
     if request.method == 'POST':
-        print(admin_handle.get_users())
         return admin_handle.get_users()
 
 
@@ -101,6 +107,17 @@ def user_login_check():
         return ret_msg
 
 
+# 用户登出
+@app.route('/user_sign_out', methods=['GET', 'POST'])
+def user_sign_out():
+    user_id = session.get('user_id')
+    if user_id:
+        session.pop('user_id', None)
+        return 'User {} has been logged out.'.format(user_id)
+    else:
+        return 'No user is logged in.'
+
+
 # 用户主页面
 @app.route('/user/user_main.html', methods=['GET', 'POST'])
 def user_main():
@@ -121,7 +138,7 @@ def user_msg():
 
 # 大模型
 @app.route('/AI_chat', methods=['POST'])
-def getMsg():
+def AI_chat():
     data = request.get_data()
     if request.method == 'POST':
         handleMsg = APP.views.handleMsg.AIResponse(data)
