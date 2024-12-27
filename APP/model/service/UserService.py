@@ -1,4 +1,3 @@
-import json
 from flask import session
 from APP.app import online_user
 
@@ -23,6 +22,8 @@ def user_register_check(new_user):
 
 # 用户登录
 def user_login_check(new_user):
+    if session.get('online_user') is None:
+        session['online_user'] = online_user
     get_user = find_user_by_username(new_user.username)
     if get_user is None:
         return '登陆失败，用户名不存在', False
@@ -51,5 +52,12 @@ def get_all_users():
     return user_list
 
 
+def get_user_by_id(user_id):
+    user = find_user_by_id(user_id)
+    if user is None:
+        return '该用户不存在',False
+    return user.to_dict(),True
+
+
 if __name__ == '__main__':
-    print(get_all_users())
+    print(get_user_by_id(1))

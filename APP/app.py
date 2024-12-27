@@ -7,11 +7,12 @@ from APP.control.admin import admin_handle
 from APP.control.user import user_handle
 from flask import session
 
+from APP.utils.tool import parse_data
+
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=1)
 online_user = {}
-session['online_user'] = online_user
 
 
 # 管理员
@@ -65,11 +66,18 @@ def admin_msg():
     return render_template('/admin/admin_msg.html')
 
 
-# 获取用户信息页面
+# 获取全部用户信息页面
 @app.route('/admin/get_user_List', methods=['GET', 'POST'])
 def get_user_List():
     if request.method == 'POST':
         print(admin_handle.get_users())
+        return admin_handle.get_users()
+
+
+# 获取用户信息页面
+@app.route('/get_user_info', methods=['GET', 'POST'])
+def get_user_info():
+    if request.method == 'POST':
         return admin_handle.get_users()
 
 
@@ -112,12 +120,9 @@ def user_login_check():
 # 用户登出
 @app.route('/user_sign_out', methods=['GET', 'POST'])
 def user_sign_out():
-    print(online_user)
     user_id = session.get('user_id')
     if user_id:
         online_user.pop(str(user_id))
-        print("pop")
-        print(online_user)
         return 'User {} has been logged out.'.format(user_id)
     else:
         return 'No user is logged in.'

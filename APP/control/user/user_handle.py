@@ -41,3 +41,22 @@ def register_check(request):
         status = 0
     ret_msg = {'msg': msg, 'status': status}
     return json.dumps(ret_msg)
+
+
+def get_user_info(request):
+    get_data = parse_data(request)
+    user_id = get_data.get('user_id')
+    data, status = UserService.get_user_by_id(user_id)
+    ret_msg = {}
+    if status:
+        status = 1
+        ret_msg = {'data': data, 'status': status}
+    else:
+        status = 0
+        ret_msg = {'data': data, 'status': status}
+    print(ret_msg)
+    return json.dumps(ret_msg)
+
+
+if __name__ == '__main__':
+    get_user_info(request='user_id=1')

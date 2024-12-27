@@ -1,7 +1,5 @@
-import json
-from APP.utils.tool import *
 from zhipuai import ZhipuAI
-from flask import session
+
 
 client = ZhipuAI(api_key="e7d7fe0a829e0872b438334405c37a8c.xRof5ICQsaRtFf6u")  # 使用您自己的APIKey
 saved_msg = {}

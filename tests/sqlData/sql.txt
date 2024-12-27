@@ -1,6 +1,6 @@
 CREATE DATABASE IF NOT EXISTS AIChat;
 use AIChat;
-create table users if
+create table users
 (
     id       int auto_increment
         primary key,
@@ -16,16 +16,14 @@ create table users if
     constraint username
         unique (username)
 );
-
 create table admin
 (
-    administrator_id   int auto_increment
+    admin_id   int auto_increment
         primary key,
-    administrator_name varchar(50) not null,
-    password           varchar(20) not null,
-    email              varchar(20) not null
+    admin_name varchar(50) not null,
+    password   varchar(20) not null,
+    email      varchar(20) not null
 );
-
 create table models
 (
     model_id       int auto_increment
