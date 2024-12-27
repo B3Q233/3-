@@ -29,8 +29,8 @@ def user_login_check(new_user):
         return '登陆失败，用户名不存在', False
     if get_user.password != new_user.password:
         return '登陆失败，密码错误', False
-    if online_user.get(str(get_user.id)) is not None:
-        return '该账户已经登录，请先注销', False
+    # if online_user.get(str(get_user.id)) is not None:
+    #     return '该账户已经登录，请先注销', False
     session['user_id'] = get_user.id
     online_user[str(get_user.id)] = 1
     return '登陆成功', True
