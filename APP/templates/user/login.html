@@ -72,14 +72,14 @@
             dataType: "json",
             success: function (response) {
                 if (response.status === 1) {
-                    showError(response.msg);
+                    {#showError(response.msg);#}
                     // 将用户名存储到localStorage中，方便在user_main页面获取使用
-                    localStorage.setItem("user_id", response.id);
-                    localStorage.setItem("user_email", response.email);
-                    localStorage.setItem("user_api_key", response.api_key);
-                    localStorage.setItem("user_password", response.password);
-                    localStorage.setItem("user_username", response.username);
-                    localStorage.setItem("user_quota", response.quota);
+                    localStorage.setItem("user_id", response.data.id);
+                    localStorage.setItem("user_email", response.data.email);
+                    localStorage.setItem("user_api_key", response.data.api_key);
+                    localStorage.setItem("user_password", response.data.password);
+                    localStorage.setItem("user_username", response.data.username);
+                    localStorage.setItem("user_quota", response.data.quota);
                     window.location.href = "user_main.html";
                 }
                 showError(response.msg);

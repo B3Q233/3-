@@ -2,7 +2,7 @@ import os
 from datetime import timedelta
 
 from flask import Flask, request, render_template
-import APP.views.handleMsg
+from APP.control.AI_model import AI_ask_handle
 from APP.control.admin import admin_handle
 from APP.control.user import user_handle
 from flask import session
@@ -58,11 +58,18 @@ def add_AI_passage():
     return render_template('/admin/add_AI.html')
 
 
+# 管理员删除大模型
+@app.route('/admin/delete_AI', methods=['GET', 'POST'])
+def add_AI_delete():
+    if request.method == 'POST':
+        return admin_handle.model_delete(request)
+
+
 # 管理员添加大模型页面
 @app.route('/admin/add_AI', methods=['GET', 'POST'])
 def add_AI():
     if request.method == 'POST':
-        return admin_handle.get_users()
+        return admin_handle.model_add(request)
 
 
 # 管理员信息页面
@@ -96,7 +103,7 @@ def get_AI_list():
 @app.route('/admin/user_update', methods=['POST'])
 def user_update():
     if request.method == 'POST':
-        return admin_handle.user_update(request)
+        return admin_handle.user_level_up(request)
 
 
 # 用户删除
@@ -167,10 +174,15 @@ def user_msg():
 # 大模型
 @app.route('/AI_chat', methods=['POST'])
 def AI_chat():
-    data = request.get_data()
     if request.method == 'POST':
-        handleMsg = APP.views.handleMsg.AIResponse(data)
-        return handleMsg
+        return AI_ask_handle.get_user_msg(request)
+
+
+# 获取模型
+@app.route('/admin/get_AI_By_Id', methods=['GET', 'POST'])
+def get_AI_By_Id():
+    if request.method == 'POST':
+        return admin_handle.get_model_by_id(request)
 
 
 if __name__ == '__main__':

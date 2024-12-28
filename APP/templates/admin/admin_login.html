@@ -67,15 +67,15 @@
                 success: function (response) {
                     if (response.status === 1) {
                         // 若后端返回成功（这里假设后端返回的数据格式中有success字段表示验证结果）
-                        showError("管理员登录成功");
-                        localStorage.setItem("admin_id", response.administrator_id);
-                        localStorage.setItem("admin_email", response.email);
-                        localStorage.setItem("admin_password", response.password);
-                        localStorage.setItem("admin_name", response.administrator_name);
+                        {#showError("管理员登录成功");#}
+                        localStorage.setItem("admin_id", response.data.admin_id);
+                        localStorage.setItem("admin_email", response.data.email);
+                        localStorage.setItem("admin_password", response.data.admin_password);
+                        localStorage.setItem("admin_name", response.data.admin_name);
                         window.location.href = "admin_main.html";
                     } else {
                         // 若后端返回失败，显示失败原因（假设后端返回的失败数据中有msg字段携带原因）
-                        showError(response.msg);
+                        showError(response.data);
                     }
                 },
                 error: function () {

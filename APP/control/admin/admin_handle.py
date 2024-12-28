@@ -25,13 +25,20 @@ def login_check(request):
         user, ret_status = UserService.get_user_by_username(admin_name)
         if ret_status:
             if user.level > 0:
-                status = True
-                msg = '登录成功'
+                ret_status = 1 if ret_status else 0
+                real_admin,user_status = UserService.get_user_by_username(admin_name)
+                ret_msg = {'status': ret_status, 'data': {'admin_name': real_admin.username,'admin_id':real_admin.id,'email':real_admin.email,'admin_password':real_admin.password}}
+                return json.dumps(ret_msg)
+            ret_msg = {'status': ret_status, 'data': "管理员不存在"}
+            return json.dumps(ret_msg)
     if status:
+        real_admin = AdminService.get_admin_by_name(admin_name)
         status = 1
+        ret_msg = {'status': status, 'data': real_admin.to_dict()}
     else:
         status = 0
-    ret_msg = {'msg': msg, 'status': status}
+        ret_msg = {'status': status, 'data': msg}
+
     return json.dumps(ret_msg)
 
 
@@ -90,13 +97,52 @@ def user_modify(request):
 # 模型添加
 def model_add(request):
     get_data = parse_data(request)
-    model_name = get_data.get('model_name')
+    model_name = get_data.get('model_name')[0]
+    model_id = get_data.get('model_id')
+    if model_id is not None:
+        model_id = model_id[0]
     model_category = get_data['model_category'][0]
-    initial_text = unquote(get_data['initial_text'][0])
-    model_description = unquote(get_data['model_description'][0])
-    new_model = Model(model_name=model_name, model_category=model_category, initial_text=initial_text, model_description=model_description)
-    msg,status = ModelService.model_add(new_model)
+    initial_text = get_data['initial_text'][0]
+    model_description = get_data['model_description'][0]
+    if model_id is not None:
+        new_model = Model(model_id=model_id, model_name=model_name, model_category=model_category,
+                          initial_text=initial_text,
+                          model_description=model_description)
+        msg, status = ModelService.whole_model_update(new_model)
+    else:
+        new_model = Model(model_name=model_name, model_category=model_category,
+                          initial_text=initial_text,
+                          model_description=model_description)
+        msg, status = ModelService.model_add(new_model)
+    if status:
+        status = 1
+    else:
+        status = 2
     return json.dumps({'status': status, 'msg': msg})
+
+
+# 根据模型id获取模型
+def get_model_by_id(request):
+    get_data = parse_data(request)
+    model_id = get_data.get('model_id')[0]
+    data, status = ModelService.get_model_by_id(model_id)
+    if status:
+        status = 1
+    else:
+        status = 2
+    return json.dumps({'status': status, 'data': data})
+
+
+# 根据id删除模型
+def model_delete(request):
+    get_data = parse_data(request)
+    model_id = get_data.get('model_id')[0]
+    msg, status = ModelService.model_delete(model_id)
+    if status:
+        status = 1
+    else:
+        status = 2
+    return json.dumps({'msg': msg, 'status': status})
 
 
 if __name__ == '__main__':

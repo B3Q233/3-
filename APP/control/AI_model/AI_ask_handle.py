@@ -2,28 +2,45 @@ import json
 
 from zhipuai import ZhipuAI
 
+from APP.utils.tool import parse_data
+
 client = ZhipuAI(api_key="e7d7fe0a829e0872b438334405c37a8c.xRof5ICQsaRtFf6u")  # 使用您自己的APIKey
+saved_msg = {}
 
-messages = []
 
-
-def getResponse(msg):
-    messages.append({"role": "user", "content": msg})
+def getResponse(msg, model_category):
     response = client.chat.completions.create(
-        request_id='20241215233705728d38ee23f147de',
-        model="glm-4-0520",  # 使用您需要调用的模型编码
-        messages=messages,
+        model=model_category,  # 使用您需要调用的模型编码
+        messages=msg,
     )
-    with open('response.json', 'w') as f:
-        json.dump(response.to_json(), f)
     retStr = response.choices[0].message.content
-    messages.append({"role": "assistant", "content": retStr})
-    with open('response.json', 'w') as f:
-        json.dump(messages, f)
     return retStr
 
 
-def AIResponse(msg):
+def get_user_msg(request):
+    data = parse_data(request)
+    user_id = data.get('user_id')[0]
+    model_str = data.get('model')[0]  # 获取 model 字符串
+    model = json.loads(model_str)  # 将 model 字符串转换为字典
+    model_id = model['model_id']
+    model_category = model['model_category']
+    model_description = model['model_description']
+    msg = data.get('msg')[0]
+    if user_id not in saved_msg:
+        saved_msg[user_id] = {}
+    if saved_msg.get(user_id).get(model_id) is None:
+        saved_msg[user_id][model_id] = []
+        saved_msg[user_id][model_id].append({'role': 'system', 'content': model_description})
+        saved_msg[user_id][model_id].append({'role': 'user', 'content': msg})
+    else:
+        saved_msg[user_id][model_id].append({'role': 'user', 'content': msg})
+    print(saved_msg)
+    ret_msg = getResponse(saved_msg[user_id][model_id], model_category)
+    saved_msg[user_id][model_id].append({'role': 'system', 'content': ret_msg})
+    return json.dumps({'status':1,'msg':ret_msg})
+
+
+def get_ai_response(msg):
     # 检查msg是否为字节类型，如果是，则解码为字符串
     if isinstance(msg, bytes):
         string = msg.decode('utf-8')
@@ -31,3 +48,20 @@ def AIResponse(msg):
         string = msg
     # 使用传入的msg参数调用getResponse函数
     return getResponse(string)
+
+
+if __name__ == '__main__':
+    data = {
+        'msg': '你好，哥哥',
+        'model': {
+            "model_id": 1,
+            "model_name": "蔡徐坤",
+            "model_category": "glm-4-plus",
+            "initial_text": "你好，我是cxk",
+            "model_description": "会唱跳rap的聊天机器人"
+        }
+    }
+    while True:
+        user_id = int(input())
+        data['msg'] = input()
+        get_user_msg(request="123", data=data, user_id=user_id)

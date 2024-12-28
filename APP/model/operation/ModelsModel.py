@@ -105,7 +105,7 @@ def find_model_by_category(model_category):
         session.close()
 
 
-def modify_model(new_model):
+def update_whole_model(new_model):
     """
        修改模型
     """

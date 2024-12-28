@@ -159,12 +159,14 @@
                     url: '/AI_chat',
                     type: 'POST',
                     contentType: 'application/json',
+                    dataType: "json",
                     data: {
+                        user_id:localStorage.getItem('user_id'),
                         msg: msg,
-                        selectedModel: selectedModel
+                        model: selectedModel
                     },
                     success: function (response) {
-                        displayMessage('gpt', response);
+                        displayMessage('gpt', response.msg);
                     },
                     error: function (xhr, status, error) {
                         console.error('AJAX请求失败:', error);

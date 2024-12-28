@@ -17,11 +17,12 @@ def login_check(request):
     password = parsed_data.get('password')[0]
     new_user = User(username=username, password=password)
     msg, status = UserService.user_login_check(new_user)
+    get_user,ret_msg = UserService.get_user_by_username(username)
     if status:
         status = 1
     else:
         status = 0
-    ret_msg = {'msg': msg, 'status': status}
+    ret_msg = {'status': status, 'data': get_user.to_dict()}
     return json.dumps(ret_msg)
 
 

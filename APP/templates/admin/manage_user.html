@@ -182,8 +182,8 @@
             $.ajax({
                 type: "POST",
                 contentType: 'application/json',
-                url: 'user_updata',
-                data: { username: id },
+                url: 'user_update',
+                data: { user_id: id },
                 dataType: 'json',
                 success: function(response) {
                     if (response.status === 1) {
@@ -204,7 +204,9 @@
             $.ajax({
                 url: 'user_delete',
                 type: 'POST',
-                data: { username: id },
+                contentType: 'application/json',
+                dataType: "json",
+                data: { user_id: id },
                 success: function(response) {
                     if (response.status === 1) {
                         showError("删除成功！");

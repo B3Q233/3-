@@ -77,6 +77,9 @@ def update_user_quota(user_id, new_quota):
 
 
 def update_user_level(user_id, new_level):
+    get_user = find_user_by_id(user_id)
+    if get_user.level >= new_level:
+        return '用户已经是管理员，不能再次提升', False
     status = UserModel.update_user_level(user_id, new_level)
     if status:
         return '更新用户权限成功', True

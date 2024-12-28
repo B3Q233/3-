@@ -32,6 +32,13 @@
     <div class="layui-form-item">
         <label class="layui-form-label">AI描述</label>
         <div class="layui-input-inline">
+            <input type="text" name="model_description"  id="model_description" placeholder="请输入" lay-verify="required" class="layui-input">
+        </div>
+    </div>
+
+     <div class="layui-form-item">
+        <label class="layui-form-label">AI初始文本</label>
+        <div class="layui-input-inline">
             <input type="text" name="initial_text"  id="initial_text" placeholder="请输入" lay-verify="required" class="layui-input">
         </div>
     </div>
@@ -67,17 +74,20 @@
             $.ajax({
                 type: "POST",
                 contentType: 'application/json',
-                url: "/getAIById", // 这里假设后端获取单个模型信息的接口是这个，需根据实际修改
+                url: "/admin/get_AI_By_Id", // 后端获取单个模型信息的接口是这个，需根据实际修改
                 data: {
                         model_id: modelId
                 },
                 dataType: "json",
                 success: function (response) {
+                    console.log(response)
                     if (response.status === 1) {
+
                         var aiInfo = response.data;
                         $('#model_name').val(aiInfo.model_name);
                         $('#model_category').val(aiInfo.model_category);
                         $('#initial_text').val(aiInfo.initial_text);
+                        $('#model_description').val(aiInfo.model_description);
                     } else {
                         showError(response.msg);
                     }
@@ -108,12 +118,13 @@
                 $.ajax({
                     type: "POST",
                     contentType: 'application/json',
-                    url: "/addAI",
+                    url: "/admin/add_AI",
                     data: {
                         model_id: htmodel_id,
                         model_name: $('#model_name').val(),
                         model_category: $('#model_category').val(),
-                        initial_text: $('#initial_text').val()
+                        initial_text: $('#initial_text').val(),
+                        model_description:$('#model_description').val()
                     },
                     dataType: "json",
                     success: function (response) {

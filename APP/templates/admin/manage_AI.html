@@ -110,8 +110,9 @@
                 type: "POST",
                 contentType: 'application/json',
                 url: 'delete_AI',
+                dataType: 'json',
                 data:{
-                    data:model_id
+                    model_id:model_id
                 },
 
                 success: function(response) {
