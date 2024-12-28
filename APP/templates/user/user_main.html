@@ -5,10 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>全视AI</title>
-    <link rel="stylesheet" href="../static/css/login.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  <!-- 引入jQuery库，方便使用Ajax -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/layui-src/dist/css/layui.css" media="all">
-    <script src="https://cdn.jsdelivr.net/npm/layui-src/dist/layui.all.js"></script>
     <link rel="stylesheet" href="../static/layui/css/layui.css" media="all">
     <script src="../static/js/jquery-3.5.1.js"></script>
     <script src="../static/layui/layui.js"></script>
@@ -46,7 +42,6 @@
                             <dd><a href="javascript:;" data-url="./chat.html">聊天机器人</a></dd>
                             <dd><a href="javascript:;" data-url="./chat.html">图片生成</a></dd>
                             <dd><a href="javascript:;" data-url="#">视频生成</a></dd>
-
                         </dl>
                     </li>
                 </ul>
@@ -63,15 +58,21 @@
     </div>
 
     <script>
+        function showError(msg) {
+            layui.use('layer', function () {
+                var layer = layui.layer;
+                layer.msg(msg);
+            });
+        }
 
-        function sign_out(){
+        function sign_out() {
             $.ajax({
                 type: "POST",
                 contentType: 'application/json',
                 url: "/user_sign_out",  // 后端验证登录的接口地址，需根据实际情况修改
                 dataType: "json",
                 success: function (response) {
-                    showError('成功登出')
+                    showError('成功登出');
                 },
                 error: function () {
                     showError("请求发生错误，请稍后再试");
@@ -96,19 +97,88 @@
                     welcomeTextElement.innerHTML = loggedInUsername + '，感谢您使用全视AI';
                 }
             }
+            getModelInfo();
         };
+
+function getModelInfo() {
+    $.ajax({
+        type: "POST",
+        contentType: 'application/json',
+        url: "/admin/get_AI_list",  // 这里需替换为实际获取模型信息的后端接口地址
+        dataType: "json",
+        success: function (response) {
+            if (response.status === 1 && response.data && response.data.length > 0) {
+                var modelInfoArray = response.data;
+                // 将模型信息存储到本地
+                localStorage.setItem('aiModels', JSON.stringify(modelInfoArray));
+
+                // 获取AI列表对应的DOM元素
+                var aiListNavItem = document.querySelector('li.layui-nav-item.layui-nav-itemed');
+                if (aiListNavItem) {
+                    // 清空原有的AI列表下的dl.layui-nav-child内容
+                    var oldChildList = aiListNavItem.querySelector('dl.layui-nav-child');
+                    if (oldChildList) {
+                        oldChildList.innerHTML = "";
+                    }
+                    var newChildContent = '';  // 创建一个空字符串来存放新的列表项
+                    modelInfoArray.forEach((modelInfo, index) => {
+                        // 给每个模型添加一个id，这个id对应模型在列表中的下标
+                        newChildContent += `<dd><a href="javascript:;" data-id="${index}" data-url="./chat.html">${modelInfo.model_name}</a></dd>`;
+                    });
+
+                    // 将新生成的内容插入到原有的子元素中
+                    if (oldChildList) {
+                        oldChildList.innerHTML = newChildContent;  // 使用innerHTML一次性插入所有内容
+                    }
+
+                    // 使用layui为新添加的链接绑定点击事件
+                    layui.use(['jquery'], function () {
+                        var $ = layui.jquery;
+                        var parentElement = aiListNavItem.querySelector('dl.layui-nav-child');
+                        if (parentElement) {
+                            $(parentElement).on('click', 'a', function () {
+                                var modelId = $(this).data('id');  // 获取点击的模型的id
+                                if (modelId !== undefined) {
+                                    // 从本地存储中获取相应的模型信息
+                                    var aiModels = JSON.parse(localStorage.getItem('aiModels'));
+                                    var selectedModel = aiModels[modelId];
+
+                                    // 将模型信息存储到本地以便跳转后使用
+                                    localStorage.setItem('selectedModel', JSON.stringify(selectedModel));
+
+                                    // 跳转到模型详情页面
+                                    var url = $(this).data('url');
+                                    if (url) {
+                                        $('#main-content').load(url);
+                                    }
+                                }
+                            });
+                        }
+                     });
+                }
+            } else {
+                showError("获取模型信息失败，请稍后再试");
+            }
+        },
+        error: function () {
+            showError("请求获取模型信息发生错误，请稍后再试");
+        }
+    });
+
+}
+
 
         layui.use(['element', 'layer', 'util'], function () {
             var element = layui.element
-               , layer1 = layui.layer
-               , util = layui.util
-               , $ = layui.$;
+              , layer1 = layui.layer
+              , util = layui.util
+              , $ = layui.$;
             util.event('lay-header-event', {
                 // 左侧菜单事件
                 menuLeft: function (othis) {
                     layer1.msg('展开左侧菜单的操作', { icon: 0 });
                 }
-               , menuRight: function () {
+              , menuRight: function () {
                     layer1.open({
                         type: 1,
                         content: '<div style="padding: 15px;">处理右侧面板的操作</div>',

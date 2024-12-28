@@ -149,6 +149,7 @@
     </script>
     <script>
         function sendMsg(msg) {
+             var selectedModel = localStorage.getItem("selectedModel");
             layui.use(['jquery', 'layer'], function () {
                 let $ = layui.jquery;
                 let layer = layui.layer;
@@ -158,7 +159,10 @@
                     url: '/AI_chat',
                     type: 'POST',
                     contentType: 'application/json',
-                    data: msg,
+                    data: {
+                        msg: msg,
+                        selectedModel: selectedModel
+                    },
                     success: function (response) {
                         displayMessage('gpt', response);
                     },
@@ -170,7 +174,6 @@
         }
     </script>
     <script>
-        // 移除了hideScrollbar函数，利用CSS样式来控制滚动条的显示与隐藏以及样式呈现
 
         // 监听表单提交事件
         layui.use(['form'], function () {

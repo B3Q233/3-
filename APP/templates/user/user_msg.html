@@ -61,39 +61,25 @@
             });
         }
 
-        window.onload = function () {
-            var loggedInUsername = localStorage.getItem("loggedInUsername");
-            if (loggedInUsername) {
-                // 使用AJAX发送GET请求到后端获取用户信息
-                $.ajax({
-                    type: "POST",
-                    contentType: 'application/json',
-                    url: "/get_user_info",  // 后端获取用户信息的接口地址，需根据实际情况修改
-                    data: {
-                        username: loggedInUsername
-                    },
-                    dataType: 'json',
-                    success: function (response) {
-                        if (response.status === 1) {
-                            var userInfoContainer = document.getElementById('user-info-container');
-                            var infoHtml = '<ul>';
-                            infoHtml += '<li><strong>用户名:</strong> ' + response.username + '</li>';
-                            infoHtml += '<li><strong>邮箱:</strong> ' + response.email + '</li>';
-                            infoHtml += '<li><strong>API Key:</strong> ' + response.api_key + '</li>';
-                            infoHtml += '<li><strong>密码:</strong> ' + response.password + '</li>';
-                            infoHtml += '<li><strong>配额:</strong> ' + response.quota + '</li>';
-                            infoHtml += '</ul>';
-                            userInfoContainer.innerHTML = infoHtml;  // 将用户信息展示在页面上
-                        } else {
-                            showError(response.msg)
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        showError("请求发生错误，请稍后再试");
-                    }
-                });
-            }
-        };
+        $(document).ready(function() {
+            var user_id = localStorage.getItem("user_id");
+            var user_username  = localStorage.getItem("user_username ");
+            var user_email = localStorage.getItem("user_email");
+            var user_api_key  = localStorage.getItem("user_api_key ");
+            var user_password  = localStorage.getItem("user_password ");
+            var user_quota  = localStorage.getItem("user_quota ");
+            var userInfoContainer = document.getElementById('user-info-container');
+            var infoHtml = '<ul>';
+             infoHtml += '<li><strong>id:</strong> ' + user_id + '</li>';
+             infoHtml += '<li><strong>用户名:</strong> ' + user_username + '</li>';
+             infoHtml += '<li><strong>邮箱:</strong> ' + user_email + '</li>';
+             infoHtml += '<li><strong>API Key:</strong> ' + user_api_key + '</li>';
+             infoHtml += '<li><strong>密码:</strong> ' + user_password + '</li>';
+             infoHtml += '<li><strong>配额:</strong> ' + user_quota + '</li>';
+             infoHtml += '</ul>';
+             userInfoContainer.innerHTML = infoHtml;  // 将用户信息展示在页面上
+        });
+
     </script>
 </body>
 

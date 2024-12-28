@@ -36,7 +36,7 @@
 </head>
 <body>
 <div class="layui-container">
-    <h2>AI管理 <a class="layui-btn" href="addnews.jsp">添加AI</a></h2>
+    <h2>AI管理 <a class="layui-btn" href="add_AI.html">添加AI</a></h2>
     <table class="layui-table" id="newsTable">
         <thead>
             <tr>
@@ -68,7 +68,7 @@
         $.ajax({
             type: "POST",
             contentType: 'application/json',
-            url: 'get_AI_list',
+            url: '/admin/get_AI_list',
             dataType: 'json',
             success: function(response) {
                 console.log(response)
@@ -109,8 +109,11 @@
             $.ajax({
                 type: "POST",
                 contentType: 'application/json',
-                url: 'DeleteAI',
-                data: JSON.stringify({ model_id: model_id }),
+                url: 'delete_AI',
+                data:{
+                    data:model_id
+                },
+
                 success: function(response) {
                     if (response.status === 1) {
                         showError("删除成功！");

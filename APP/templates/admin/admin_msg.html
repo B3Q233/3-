@@ -1,10 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <title>管理员信息</title>
+    <style>
+        /* 整体页面背景色设置为浅灰色，营造柔和的视觉效果 */
+        body {
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
 
+        /* 用户信息容器样式，设置宽度、背景色、边框、内边距、外边距、圆角等，使其更具立体感和美观性，且在页面中居中显示 */
+        #admin-info-container {
+            width: 60%;
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin: 50px auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 信息列表样式，去除默认的列表样式，使其更简洁 */
+        #admin-info-container ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* 信息列表项样式，设置内边距、边框底部、字体大小等，增强可读性和视觉层次感 */
+        #admin-info-container ul li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 16px;
+        }
+
+        /* 最后一个列表项去除底部边框，避免多余的线条影响美观 */
+        #admin-info-container ul li:last-child {
+            border-bottom: none;
+        }
+
+        /* 信息项的标题（如用户名、邮箱等）加粗显示，方便区分内容和标题 */
+        #admin-info-container ul li strong {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="admin-info-container"></div> <!-- 用于展示用户信息的容器 -->
+    <script>
+        function showError(msg) {
+            layui.use('layer', function () {
+                let layer = layui.layer;
+                layer.msg(msg); // 默认风格
+            });
+        }
+
+        $(document).ready(function() {
+            var adminInfoContainer = document.getElementById('admin-info-container');
+            var admin_id = localStorage.getItem("admin_id");
+            var admin_name = localStorage.getItem("admin_name");
+            var admin_email = localStorage.getItem("admin_email");
+            var admin_password = localStorage.getItem("admin_password");
+            var infoHtml = '<ul>';
+             infoHtml += '<li><strong>id:</strong> ' + admin_id + '</li>';
+             infoHtml += '<li><strong>用户名:</strong> ' + admin_name + '</li>';
+             infoHtml += '<li><strong>邮箱:</strong> ' + admin_email + '</li>';
+             infoHtml += '<li><strong>密码:</strong> ' + admin_password + '</li>';
+             infoHtml += '</ul>';
+             adminInfoContainer.innerHTML = infoHtml;  // 将用户信息展示在页面上
+        });
+
+    </script>
 </body>
+
 </html>

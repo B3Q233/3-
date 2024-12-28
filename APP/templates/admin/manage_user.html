@@ -106,6 +106,7 @@
     <table class="layui-table" id="userTable">
         <thead>
         <tr>
+            <th>id</th>
             <th>用户名</th>
             <th>邮箱</th>
             <th>api_key</th>
@@ -153,6 +154,7 @@
                 $('#userTableBody').empty();
                 for (let i in userList) {
                     let tr = '<tr>';
+                    tr += '<td>' + userList[i].id + '</td>';
                     tr += '<td>' + userList[i].username + '</td>';
                     tr += '<td>' + userList[i].email + '</td>';
                     tr += '<td>' + userList[i].api_key + '</td>';
@@ -160,8 +162,8 @@
                     tr += '<td>' + userList[i].quota + '</td>';
                     tr += '<td>' + (userList[i].online_status ? '在线' : '离线') + '</td>';
                     tr += '<td>';
-                    tr += '<button onclick="deleteUser(\'' + userList[i].username + '\')" class="layui-btn layui-btn-danger layui-btn-sm">删除</button>';
-                    tr += '<button onclick="strongUser(\'' + userList[i].username + '\')" class="layui-btn layui-btn-danger layui-btn-sm">升为管理员</button>';
+                    tr += '<button onclick="deleteUser(\'' + userList[i].id + '\')" class="layui-btn layui-btn-danger layui-btn-sm">删除</button>';
+                    tr += '<button onclick="stronguser(\'' + userList[i].id + '\')" class="layui-btn layui-btn-danger layui-btn-sm">升为管理员</button>';
                     tr += '</td>';
                     tr += '</tr>';
                     $('#userTableBody').append(tr);
@@ -175,12 +177,34 @@
         }
     });
 }
-    function deleteUser(username) {
+    function stronguser(id) {
+        if (confirm("要将其升为管理员吗？")) {
+            $.ajax({
+                type: "POST",
+                contentType: 'application/json',
+                url: 'user_updata',
+                data: { username: id },
+                dataType: 'json',
+                success: function(response) {
+                    if (response.status === 1) {
+                        showError("升级成功！");
+                        loadUsers();
+                    } else {
+                        showError(response.msg);
+                    }
+                },
+                error: function() {
+                    showError("升级失败，请稍后重试。");
+                }
+            });
+        }
+    }
+    function deleteUser(id) {
         if (confirm("确定要删除这个用户吗？")) {
             $.ajax({
-                url: 'DeleteUserServlet',
+                url: 'user_delete',
                 type: 'POST',
-                data: { username: username },
+                data: { username: id },
                 success: function(response) {
                     if (response.status === 1) {
                         showError("删除成功！");
@@ -195,6 +219,7 @@
             });
         }
     }
+
 </script>
 </body>
 </html>
