@@ -17,7 +17,7 @@ class Model(Base):
     # 定义模型id字段，为主键且自动递增
     model_id = Column(Integer, primary_key=True, autoincrement=True)
     # 定义模型名字段
-    model_name = Column(String(100), nullable=False,unique=True)
+    model_name = Column(String(100), nullable=False, unique=True)
     # 定义模型类别字段
     model_category = Column(String(50), nullable=False)
     # 定义初始文本字段
@@ -25,7 +25,7 @@ class Model(Base):
     # 定义模型描述
     model_description = Column(String(500), nullable=False)
 
-    def __init__(self, model_name=None, model_category=None, initial_text=None,model_description = None):
+    def __init__(self, model_name=None, model_category=None, initial_text=None, model_description=None, model_id=None):
         """
         初始化Model类实例。
 
@@ -39,6 +39,7 @@ class Model(Base):
         self.model_category = model_category
         self.initial_text = initial_text
         self.model_description = model_description
+        self.model_id = model_id
 
     def to_dict(self):
         """

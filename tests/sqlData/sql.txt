@@ -1,21 +1,18 @@
 CREATE DATABASE IF NOT EXISTS AIChat;
 use AIChat;
-create table users
+CREATE TABLE users
 (
-    id       int auto_increment
-        primary key,
-    email    varchar(30)  not null,
-    api_key  varchar(255) not null,
-    password varchar(20)  not null,
-    username varchar(20)  not null,
-    quota    int          null,
-    constraint email
-        unique (email),
-    constraint ix_unique_users_id
-        unique (id),
-    constraint username
-        unique (username)
+    id       INT AUTO_INCREMENT PRIMARY KEY,
+    email    VARCHAR(30)  NOT NULL,
+    api_key  VARCHAR(255) NULL,
+    password VARCHAR(20)  NOT NULL,
+    username VARCHAR(20)  NOT NULL,
+    quota    INT          DEFAULT 0 NULL,
+    level    INT          DEFAULT 0 NULL,
+    CONSTRAINT email UNIQUE (email),
+    CONSTRAINT username UNIQUE (username)
 );
+
 create table admin
 (
     admin_id   int auto_increment
@@ -26,12 +23,16 @@ create table admin
 );
 create table models
 (
-    model_id       int auto_increment
+    model_id          int auto_increment
         primary key,
-    model_name     varchar(100) not null,
-    model_category varchar(50)  not null,
-    initial_text   varchar(500) not null
+    model_name        varchar(100) not null,
+    model_category    varchar(50)  not null,
+    initial_text      varchar(500) not null,
+    model_description varchar(500) not null,
+    constraint model_name
+        unique (model_name)
 );
+
 use aichat;
 insert into admin
 values(1, 'admin', 'admin123', 'admin@qq.com');

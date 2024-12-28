@@ -11,21 +11,24 @@ class User(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     email = Column(String(30), nullable=False, unique=True)
-    api_key = Column(String(255), nullable=False)
+    api_key = Column(String(255), default="")
     password = Column(String(20), nullable=False)
     username = Column(String(20), nullable=False, unique=True)
-    quota = Column(Integer)
+    quota = Column(Integer,default=0)
+    level = Column(Integer,default=0)
 
     __mapper_args__ = {
         'primary_key': [id],
     }
 
-    def __init__(self, email=None, api_key=None, password=None, username=None, quota=None):
+    def __init__(self, email=None, api_key=None, password=None, username=None, quota=None,level=None,id = None):
+        self.id = id
         self.email = email
         self.api_key = api_key
         self.password = password
         self.username = username
         self.quota = quota
+        self.level = level
 
     def to_dict(self):
         """
@@ -40,7 +43,8 @@ class User(Base):
             'api_key': self.api_key,
             'password': self.password,
             'username': self.username,
-            'quota': self.quota
+            'quota': self.quota,
+            'level':self.level
         }
 
 

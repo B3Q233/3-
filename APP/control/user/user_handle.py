@@ -2,8 +2,9 @@ import json
 from flask import session
 from APP.model.entity.User import *
 from APP.model.service import UserService
-from APP.model.service.UserService import *
 from urllib.parse import unquote, parse_qs
+
+from APP.utils.tool import parse_data
 
 
 # 用户登录
@@ -34,7 +35,7 @@ def register_check(request):
     email = unquote(parsed_data['email'][0])
     password = parsed_data['password'][0]
     new_user = User(username=username, password=password, email=email)
-    msg, status = user_register_check(new_user)
+    msg, status = UserService.user_register_check(new_user)
     if status:
         status = 1
     else:
@@ -43,20 +44,23 @@ def register_check(request):
     return json.dumps(ret_msg)
 
 
+# 获取单个用户信息
 def get_user_info(request):
     get_data = parse_data(request)
     user_id = get_data.get('user_id')
-    data, status = UserService.get_user_by_id(user_id)
+    user, status = UserService.get_user_by_id(user_id)
     ret_msg = {}
     if status:
         status = 1
-        ret_msg = {'data': data, 'status': status}
+        ret_msg = {'data': user.to_dict(), 'status': status}
     else:
         status = 0
-        ret_msg = {'data': data, 'status': status}
-    print(ret_msg)
+        ret_msg = {'data': user.to_dict(), 'status': status}
     return json.dumps(ret_msg)
 
 
 if __name__ == '__main__':
-    get_user_info(request='user_id=1')
+    origin_data = {
+        'data': b'{user_id:1}'
+    }
+    print(get_user_info(request=origin_data))

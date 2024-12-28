@@ -7,8 +7,6 @@ from APP.control.admin import admin_handle
 from APP.control.user import user_handle
 from flask import session
 
-from APP.utils.tool import parse_data
-
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=1)
@@ -54,10 +52,17 @@ def manage_web():
     return render_template('/admin/manage_web.html')
 
 
-# 管理员添加大模型
+# 管理员添加大模型页面
 @app.route('/admin/add_AI.html', methods=['GET', 'POST'])
-def add_AI():
+def add_AI_passage():
     return render_template('/admin/add_AI.html')
+
+
+# 管理员添加大模型页面
+@app.route('/admin/add_AI', methods=['GET', 'POST'])
+def add_AI():
+    if request.method == 'POST':
+        return admin_handle.get_users()
 
 
 # 管理员信息页面
@@ -70,7 +75,6 @@ def admin_msg():
 @app.route('/admin/get_user_List', methods=['GET', 'POST'])
 def get_user_List():
     if request.method == 'POST':
-        print(admin_handle.get_users())
         return admin_handle.get_users()
 
 
@@ -86,6 +90,20 @@ def get_user_info():
 def get_AI_list():
     if request.method == 'POST':
         return admin_handle.get_AI()
+
+
+# 用户升级
+@app.route('/admin/user_update', methods=['POST'])
+def user_update():
+    if request.method == 'POST':
+        return admin_handle.user_update(request)
+
+
+# 用户删除
+@app.route('/admin/user_delete', methods=['POST'])
+def user_delete():
+    if request.method == 'POST':
+        return admin_handle.user_delete(request)
 
 
 # 用户

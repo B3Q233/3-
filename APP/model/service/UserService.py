@@ -1,5 +1,4 @@
-from flask import session
-from APP.app import online_user
+from APP.model.operation import UserModel
 
 from APP.model.operation.UserModel import *
 from APP.utils.tool import *
@@ -22,32 +21,21 @@ def user_register_check(new_user):
 
 # 用户登录
 def user_login_check(new_user):
-    if session.get('online_user') is None:
-        session['online_user'] = online_user
     get_user = find_user_by_username(new_user.username)
     if get_user is None:
         return '登陆失败，用户名不存在', False
     if get_user.password != new_user.password:
         return '登陆失败，密码错误', False
-    # if online_user.get(str(get_user.id)) is not None:
-    #     return '该账户已经登录，请先注销', False
-    session['user_id'] = get_user.id
-    online_user[str(get_user.id)] = 1
     return '登陆成功', True
 
 
 # 获取全部用户
 
 def get_all_users():
-    print(online_user)
     user_list = []
     users = find_all_users()
     for user in users:
         user_dict = user.to_dict()
-        if online_user.get(str(user.id)) is not None:
-            user_dict['online_status'] = True
-        else:
-            user_dict['online_status'] = False
         user_list.append(user_dict)
     return user_list
 
@@ -55,9 +43,45 @@ def get_all_users():
 def get_user_by_id(user_id):
     user = find_user_by_id(user_id)
     if user is None:
-        return '该用户不存在',False
-    return user.to_dict(),True
+        return '该用户不存在', False
+    return user, True
+
+
+def get_user_by_username(username):
+    user = find_user_by_username(username)
+    if user is None:
+        return '该用户不存在', False
+    return user, True
+
+
+def delete_user_by_id(user_id):
+    user = find_user_by_id(user_id)
+    if user is None:
+        return '删除失败，该用户不存在', False
+    status = UserModel.delete_user_by_id(user_id)
+    if status:
+        return '删除成功', True
+    return '删除失败，请检查网络', False
+
+
+def update_whole_user(new_user):
+    status = UserModel.update_whole_user(new_user)
+    if status:
+        return '更新用户成功', True
+    return '更新用户失败', False
+
+
+def update_user_quota(user_id, new_quota):
+    status = UserModel.update_user_quota(user_id, new_quota)
+    return status
+
+
+def update_user_level(user_id, new_level):
+    status = UserModel.update_user_level(user_id, new_level)
+    if status:
+        return '更新用户权限成功', True
+    return '更新用户权限失败', False
 
 
 if __name__ == '__main__':
-    print(get_user_by_id(1))
+    print(get_user_by_username('admin1'))
