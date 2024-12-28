@@ -1,10 +1,136 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" width=device-width, initial-scale=1">
+    <title>添加AI</title>
+    <link rel="stylesheet" href="../static/layui/css/layui.css" media="all">
+    <script src="../static/js/jquery-3.5.1.js"></script>
+    <script src="../static/layui/layui.js"></script>
 </head>
 <body>
+
+<div class="title1" style="margin: 10px 0px; height: 60px; text-align: center; width: 100%; overflow: hidden;">
+    <h1 style="color: #16baaa; font-size: 40px; font-family: '楷体';" id="page-title">添加AI</h1>
+</div>
+
+<form class="layui-form layui-form-pane" id="AIForm" action="/addAI" method="post">
+    <div class="layui-form-item">
+        <label class="layui-form-label">AI名字</label>
+        <div class="layui-input-inline">
+            <input type="text" name="model_name" id="model_name" autocomplete="off" placeholder="请输入" lay-verify="required" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">AI类型</label>
+        <div class="layui-input-inline">
+            <input type="text" name="model_category"  id="model_category" placeholder="请输入" lay-verify="required" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">AI描述</label>
+        <div class="layui-input-inline">
+            <input type="text" name="initial_text"  id="initial_text" placeholder="请输入" lay-verify="required" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item" style="text-align: center;">
+        <button type="submit" class="layui-btn" lay-submit lay-filter="demo2">确认</button>
+        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+</form>
+
+<script src="layui-main/src/layui.js"></script>
+<script>
+    function showError(msg) {
+        layui.use('layer', function () {
+            let layer = layui.layer;
+            layer.msg(msg); // 默认风格
+        });
+    }
+
+    // 获取URL中的参数
+    function getUrlParam(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r!= null) return unescape(r[2]);
+        return null;
+    }
+
+    // 页面加载完成后执行
+    $(function () {
+        var modelId = getUrlParam('model_id');
+        if (modelId) {
+            // 如果有id参数，发送请求获取模型信息填充表单
+            $.ajax({
+                type: "POST",
+                contentType: 'application/json',
+                url: "/getAIById", // 这里假设后端获取单个模型信息的接口是这个，需根据实际修改
+                data: {
+                        model_id: modelId
+                },
+                dataType: "json",
+                success: function (response) {
+                    if (response.status === 1) {
+                        var aiInfo = response.data;
+                        $('#model_name').val(aiInfo.model_name);
+                        $('#model_category').val(aiInfo.model_category);
+                        $('#initial_text').val(aiInfo.initial_text);
+                    } else {
+                        showError(response.msg);
+                    }
+                },
+                error: function (error) {
+                    showError("获取模型信息失败，请重试");
+                }
+            });
+        }
+
+        // 监听表单的提交事件，使用layui的form模块的事件监听机制
+        layui.use('form', function () {
+            var form = layui.form;
+            form.on('submit(demo2)', function (data) {
+                return false;
+            });
+
+            // 给确认按钮添加点击事件监听
+            $('#AIForm button[lay-submit]').click(function (e) {
+                e.preventDefault();
+
+                var htmodel_id = "";
+                if (modelId) {
+                    htmodel_id = modelId; // 如果有id，添加到要提交的数据中
+                }
+
+                // 使用ajax发送POST请求到后台
+                $.ajax({
+                    type: "POST",
+                    contentType: 'application/json',
+                    url: "/addAI",
+                    data: {
+                        model_id: htmodel_id,
+                        model_name: $('#model_name').val(),
+                        model_category: $('#model_category').val(),
+                        initial_text: $('#initial_text').val()
+                    },
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.status === 1) {
+                            showError(response.msg);
+                        } else {
+                            showError(response.msg);
+                        }
+                    },
+                    error: function (error) {
+                        showError("操作错误，请重试");
+                    }
+                });
+            });
+        });
+    });
+</script>
 
 </body>
 </html>
