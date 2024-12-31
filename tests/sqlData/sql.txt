@@ -33,6 +33,15 @@ create table models
         unique (model_name)
 );
 
-use aichat;
-insert into admin
-values(1, 'admin', 'admin123', 'admin@qq.com');
+-- auto-generated definition
+create table user_model_usage
+(
+    user_id       int          not null,
+    model_id      int          not null,
+    usage_content varchar(200) not null,
+    usage_time    datetime     not null,
+    primary key (user_id, model_id),
+    FOREIGN KEY (user_id) REFERENCES users (id),
+    FOREIGN KEY (model_id) REFERENCES models (model_id)
+);
+

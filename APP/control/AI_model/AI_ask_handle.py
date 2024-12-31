@@ -1,11 +1,23 @@
+import ast
 import json
 
 from zhipuai import ZhipuAI
 
+from APP.model.service import UserModelUsageService
 from APP.utils.tool import parse_data
+
+from APP.model.service.ModelService import *
 
 client = ZhipuAI(api_key="e7d7fe0a829e0872b438334405c37a8c.xRof5ICQsaRtFf6u")  # 使用您自己的APIKey
 saved_msg = {}
+
+
+def getImgResponse(prompt, model_category):
+    response = client.images.generations(
+        model=model_category,  # 填写需要调用的模型编码
+        prompt=prompt,
+    )
+    return response.data[0].url
 
 
 def getResponse(msg, model_category):
@@ -15,6 +27,17 @@ def getResponse(msg, model_category):
     )
     retStr = response.choices[0].message.content
     return retStr
+
+
+def database_handle(user_id, model_id,msg,model_category):
+    ret_history = UserModelUsageService.get_usage_history(user_id, model_id)
+    usage_content = ast.literal_eval(ret_history['usage_content'])
+    print(type(usage_content))
+    usage_content.append({'role': 'user', 'content': msg})
+    ret_msg = getResponse(usage_content,model_category)
+    usage_content.append({'role': 'system', 'content': ret_msg})
+    UserModelUsageService.update_usage(UserModelUsage(user_id=user_id,model_id=model_id, usage_content=str(usage_content)))
+    return json.dumps({'status': 1, 'msg': ret_msg})
 
 
 def get_user_msg(request):
@@ -32,12 +55,21 @@ def get_user_msg(request):
         saved_msg[user_id][model_id] = []
         saved_msg[user_id][model_id].append({'role': 'system', 'content': model_description})
         saved_msg[user_id][model_id].append({'role': 'user', 'content': msg})
+    elif model_category != 'cogview-3-flash' and len(saved_msg[user_id][model_id]) >= 1 and saved_msg[user_id][model_id][0] == -1:
+        return database_handle(user_id, model_id,msg,model_category)
     else:
         saved_msg[user_id][model_id].append({'role': 'user', 'content': msg})
-    print(saved_msg)
-    ret_msg = getResponse(saved_msg[user_id][model_id], model_category)
-    saved_msg[user_id][model_id].append({'role': 'system', 'content': ret_msg})
-    return json.dumps({'status':1,'msg':ret_msg})
+    if model_category == 'cogview-3-flash':
+        ret_msg = getImgResponse(prompt=msg, model_category=model_category)
+        ret_msg = [{'url': ret_msg}]
+    else:
+        ret_msg = getResponse(saved_msg[user_id][model_id], model_category)
+        saved_msg[user_id][model_id].append({'role': 'system', 'content': ret_msg})
+    if model_category != 'cogview-3-flash' and len(saved_msg[user_id][model_id]) >= 20:
+        new_usage = UserModelUsage(user_id=user_id, model_id=model_id, usage_content=str(saved_msg[user_id][model_id]))
+        UserModelUsageService.insert_usage(new_usage)
+        saved_msg[user_id][model_id] = [-1]
+    return json.dumps({'status': 1, 'msg': ret_msg})
 
 
 def get_ai_response(msg):
@@ -52,16 +84,16 @@ def get_ai_response(msg):
 
 if __name__ == '__main__':
     data = {
+        'user_id': [1, 2],
         'msg': '你好，哥哥',
-        'model': {
+        'model': [{
             "model_id": 1,
             "model_name": "蔡徐坤",
             "model_category": "glm-4-plus",
             "initial_text": "你好，我是cxk",
             "model_description": "会唱跳rap的聊天机器人"
-        }
+        }]
     }
     while True:
-        user_id = int(input())
         data['msg'] = input()
-        get_user_msg(request="123", data=data, user_id=user_id)
+        get_user_msg(data=data)
