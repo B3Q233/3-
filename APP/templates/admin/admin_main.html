@@ -12,18 +12,25 @@
     <script>
     </script>
 </head>
-
+<style>
+.layui-body {
+    background-image: url('../static/images/user_main.jpg');
+    background-size: cover; /* 设置背景图片自适应填充整个元素 */
+    background-position: center center; /* 让图片居中显示 */
+    background-repeat: no-repeat; /* 禁止图片重复平铺 */
+    opacity: 1;
+}
+</style>
 <body>
     <div class="layui-layout layui-layout-admin">
         <div class="layui-header">
-            <div class="layui-logo layui-hide-xs layui-bg-black">全视AI后台管理页面</div>
+            <div class="layui-logo layui-hide-xs layui-bg-black"><img src="../static/images/logo.png" class="layui-nav-img">全视AI后台管理</div>
             <ul class="layui-nav layui-layout-right">
                 <li class="layui-nav-item layui-hide layui-show-md-inline-block">
                     <a href="javascript:;">
-                        <!-- 账户名 -->
                     </a>
                     <dl class="layui-nav-child">
-                        <dd><a href="login.html">退出登录</a></dd>
+                        <dd><a href="admin_login.html">退出登录</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -52,7 +59,7 @@
         <div class="layui-body">
             <!-- 内容主体区域 -->
             <div style="margin: 0; padding: 0;" id="main-content">
-                <h2>欢迎进入全视AI后台管理页面</h2>
+{#                <h2>欢迎进入全视AI后台管理页面</h2>#}
 
             </div>
         </div>
@@ -72,10 +79,10 @@
                         userLink.innerHTML = '<img src="../static/images/logo.png" class="layui-nav-img">' + admin_name;
                     }
                 }
-                 let welcomeTextElement = document.getElementById('main-content').querySelector('h2');
-                if (welcomeTextElement) {
-                    welcomeTextElement.innerHTML = '尊敬的管理员' + admin_name + '，欢迎您进入全视AI后台管理页面';
-                }
+                {# let welcomeTextElement = document.getElementById('main-content').querySelector('h2');#}
+                {#if (welcomeTextElement) {#}
+                {#    welcomeTextElement.innerHTML = '尊敬的管理员' + admin_name + '，欢迎您进入全视AI后台管理页面';#}
+                {# }#}
             }
         };
 

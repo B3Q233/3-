@@ -9,18 +9,25 @@
     <script src="../static/js/jquery-3.5.1.js"></script>
     <script src="../static/layui/layui.js"></script>
 </head>
-
+<style>
+.layui-body {
+    background-image: url('../static/images/user_main.jpg');
+    background-size: cover; /* 设置背景图片自适应填充整个元素 */
+    background-position: center center; /* 让图片居中显示 */
+    background-repeat: no-repeat; /* 禁止图片重复平铺 */
+    opacity: 0.8; /* 设置整个元素（包含内容及背景）的透明度为0.5 */
+}
+</style>
 <body>
     <div class="layui-layout layui-layout-admin">
         <div class="layui-header">
-            <div class="layui-logo layui-hide-xs layui-bg-black">欢迎来到全视AI</div>
+            <div class="layui-logo layui-hide-xs layui-bg-black"> <img src="../static/images/logo.png" class="layui-nav-img">感谢使用全视AI</div>
             <ul class="layui-nav layui-layout-right">
                 <li class="layui-nav-item layui-hide layui-show-md-inline-block">
                     <a href="javascript:;">
-                        <!-- 账户名 -->
                     </a>
                     <dl class="layui-nav-child">
-{#                        <dd><a href="user_msg.html">个人信息</a></dd>#}
+                        <dd><a href="javascript:;" onclick="sign_in()">签到</a></dd>
                         <dd><a href="login.html" onclick="sign_out()">退出登录</a></dd>
                     </dl>
                 </li>
@@ -72,7 +79,34 @@
                 url: "/user_sign_out",  // 后端验证登录的接口地址，需根据实际情况修改
                 dataType: "json",
                 success: function (response) {
+                    if (response.status === 1) {
                     showError('成功登出');
+                    }else{
+                        showError(response.msg);
+                    }
+                },
+                error: function () {
+                    showError("请求发生错误，请稍后再试");
+                }
+            });
+        }
+
+        function sign_in() {
+            var user_id = localStorage.getItem("user_id");
+            $.ajax({
+                type: "POST",
+                contentType: 'application/json',
+                url: "/sign_in",  // 后端验证登录的接口地址，需根据实际情况修改
+                dataType: "json",
+                data:{
+                  user_id: user_id
+                },
+                success: function (response) {
+                    if (response.status === 1) {
+                    showError('签到成功');
+                    }else{
+                        showError(response.msg);
+                    }
                 },
                 error: function () {
                     showError("请求发生错误，请稍后再试");
@@ -90,11 +124,6 @@
                     if (userLink) {
                         userLink.innerHTML = '<img src="../static/images/logo.png" class="layui-nav-img">' + loggedInUsername;
                     }
-                }
-                // 替换内容主体区域的欢迎语
-                var welcomeTextElement = document.getElementById('main-content').querySelector('h2');
-                if (welcomeTextElement) {
-                    welcomeTextElement.innerHTML = loggedInUsername + '，感谢您使用全视AI';
                 }
             }
             getModelInfo();

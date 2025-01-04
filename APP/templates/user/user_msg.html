@@ -52,7 +52,8 @@
 </head>
 
 <body>
-    <div id="user-info-container"></div> <!-- 用于展示用户信息的容器 -->
+    <div id="user-info-container">
+    </div> <!-- 用于展示用户信息的容器 -->
     <script>
         function showError(msg) {
             layui.use('layer', function () {
@@ -76,6 +77,7 @@
              infoHtml += '<li><strong>API Key:</strong> ' + user_api_key + '</li>';
              infoHtml += '<li><strong>密码:</strong> ' + user_password + '</li>';
              infoHtml += '<li><strong>配额:</strong> ' + user_quota + '</li>';
+             infoHtml += '<li><strong>如有问题请联系管理员：3455853417@qq.com</strong></li>';
              infoHtml += '</ul>';
              userInfoContainer.innerHTML = infoHtml;  // 将用户信息展示在页面上
         });
