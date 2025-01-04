@@ -71,10 +71,8 @@
             url: '/admin/get_AI_list',
             dataType: 'json',
             success: function(response) {
-                console.log(response)
                 if (response.status === 1) {
                     const aiList = response.data;
-                    console.log(aiList);
                     $('#newsTableBody').empty();
                     for (let i in aiList) {
                         let tr = '<tr>';

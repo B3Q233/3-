@@ -4,9 +4,9 @@ import string
 from datetime import timedelta
 
 from flask import Flask, request, render_template, redirect, url_for
-from APP.control.AI_model import AI_ask_handle
-from APP.control.admin import admin_handle
-from APP.control.user import user_handle
+from control.AI_model import AI_ask_handle
+from control.admin import admin_handle
+from control.user import user_handle
 from flask import session
 
 
