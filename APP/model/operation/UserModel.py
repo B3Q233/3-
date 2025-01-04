@@ -2,7 +2,7 @@ import time
 
 from APP.model.entity.User import User
 from APP.logs.logConfig import logging
-from APP.model.sqltest import get_session
+from APP.model.db_pool import get_session
 
 # 配置日志记录器
 current_time = time.strftime('%Y-%m-%d', time.localtime())

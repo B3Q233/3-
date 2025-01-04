@@ -1,5 +1,5 @@
 from APP.model.operation import ModelsModel
-from APP.model.entity.Model import *
+from APP.model.entity.UserModelUsage import *
 
 
 # 获取全部AI模型信息，并转换成字典

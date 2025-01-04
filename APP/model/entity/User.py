@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, Index
 from sqlalchemy.orm import declarative_base
 
-from APP.model import sqltest
+from APP.model import db_pool
 
 Base = declarative_base()
 

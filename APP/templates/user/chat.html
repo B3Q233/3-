@@ -7,7 +7,8 @@
     <style>
         /* 去除body原有的一些布局相关样式设置 */
         body {
-            background-color: #ffffff; /* 将body背景色改为白色 */
+            background-color: #ffffff;
+            /* 将body背景色改为白色 */
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
@@ -17,8 +18,10 @@
     .layui-container {
             width: 100%;
             height: 100%;
-            background-color: #f9f9f9; /* 容器背景色改为浅灰色，稍显柔和 */
-            border: 1px solid #e6e6e6; /* 边框颜色保持浅灰色 */
+            background-color: #f9f9f9;
+            /* 容器背景色改为浅灰色，稍显柔和 */
+            border: 1px solid #e6e6e6;
+            /* 边框颜色保持浅灰色 */
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             overflow: hidden;
@@ -33,21 +36,25 @@
             padding: 15px;
             overflow-y: auto;
             scrollbar-width: thin;
-            scrollbar-color: #ccc #f9f9f9; /* 滚动条颜色适配背景 */
-            background-color: #f9f9f9; /* 内容展示区域背景色与容器一致 */
+            scrollbar-color: #ccc #f9f9f9;
+            /* 滚动条颜色适配背景 */
+            background-color: #f9f9f9;
+            /* 内容展示区域背景色与容器一致 */
         }
 
-        /* 针对不同浏览器自定义滚动条样式（WebKit 内核浏览器，如 Chrome、Safari 等） */
+        /* 针对不同浏览器自定义滚动条样式（WebKit 内核浏览器，如Chrome、Safari等） */
     .layui-card-body::-webkit-scrollbar {
             width: 8px;
         }
 
     .layui-card-body::-webkit-scrollbar-track {
-            background-color: #f9f9f9; /* 滚动条轨道颜色与内容展示区背景一致 */
+            background-color: #f9f9f9;
+            /* 滚动条轨道颜色与内容展示区背景一致 */
         }
 
     .layui-card-body::-webkit-scrollbar-thumb {
-            background-color: #ccc; /* 滚动条滑块颜色为浅灰色 */
+            background-color: #ccc;
+            /* 滚动条滑块颜色为浅灰色 */
             border-radius: 4px;
         }
 
@@ -61,8 +68,10 @@
         }
 
     .chat-message.you {
-            background-color: #e6f7ff; /* 发送者消息背景色为浅蓝色，清新感 */
-            color: #0056b3; /* 文字颜色与背景搭配协调 */
+            background-color: #e6f7ff;
+            /* 发送者消息背景色为浅蓝色，清新感 */
+            color: #0056b3;
+            /* 文字颜色与背景搭配协调 */
             align-self: flex-end;
         }
 
@@ -76,7 +85,8 @@
         /* 聊天输入框区域，设置内边距、背景色等，使其与整体风格协调 */
     .layui-card-footer {
             padding: 15px;
-            background-color: #f9f9f9; /* 输入框区域背景色与容器一致 */
+            background-color: #f9f9f9;
+            /* 输入框区域背景色与容器一致 */
         }
 
         /* 输入框样式，设置宽度、高度、边框、圆角等，使其更加美观 */
@@ -86,14 +96,18 @@
             border: 1px solid #ccc;
             border-radius: 4px;
             padding: 0 10px;
-            background-color: white; /* 输入框背景色为白色 */
-            color: #333; /* 输入框文字颜色为深灰色 */
+            background-color: white;
+            /* 输入框背景色为白色 */
+            color: #333;
+            /* 输入框文字颜色为深灰色 */
         }
 
         /* 发送按钮样式，设置背景色、文字颜色、鼠标悬停效果等，提升交互性 */
     .layui-btn {
-            background-color: #16baaa; /* 发送按钮背景色为主题色 */
-            color: white; /* 文字颜色为白色 */
+            background-color: #16baaa;
+            /* 发送按钮背景色为主题色 */
+            color: white;
+            /* 文字颜色为白色 */
             height: 40px;
             line-height: 40px;
             border-radius: 4px;
@@ -122,7 +136,7 @@
                         <form class="layui-form" action="" onsubmit="return false;">
                             <div class="layui-form-item">
                                 <div class="layui-input-inline" style="width: 80%;">
-                                    <input type="text" name="message"  lay-verify="required" placeholder="请输入消息..."
+                                    <input type="text" name="message" lay-verify="required" placeholder="请输入消息..."
                                         autocomplete="off" class="layui-input">
                                 </div>
                                 <div class="layui-input-inline" style="width: 15%;">
@@ -135,64 +149,148 @@
             </div>
         </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script>
+            // 显示消息函数，添加类名来区分不同发送者的消息样式
+            function displayMessage(username, message) {
+                let chatMessages = document.getElementById('chat-messages');
+                let newMessage = document.createElement('div');
+                newMessage.className = `chat-message ${username === 'You'? 'you' : 'gpt'}`;
 
-    <script>
-        // 显示消息函数，添加类名来区分不同发送者的消息样式
-        function displayMessage(username, message) {
-            let chatMessages = document.getElementById('chat-messages');
-            let newMessage = document.createElement('div');
-            newMessage.className = `chat-message ${username === 'You'? 'you' : 'gpt'}`;
-            newMessage.innerHTML = `<strong>${username}:</strong> ${message}`;
-            chatMessages.appendChild(newMessage);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-    </script>
-    <script>
-        function sendMsg(msg) {
-             var selectedModel = localStorage.getItem("selectedModel");
-            layui.use(['jquery', 'layer'], function () {
-                let $ = layui.jquery;
-                let layer = layui.layer;
-                console.log(msg)
-                // 发送AJAX请求
-                $.ajax({
-                    url: '/AI_chat',
-                    type: 'POST',
-                    contentType: 'application/json',
-                    dataType: "json",
-                    data: {
-                        user_id:localStorage.getItem('user_id'),
-                        msg: msg,
-                        model: selectedModel
-                    },
-                    success: function (response) {
-                        displayMessage('gpt', response.msg);
-                    },
-                    error: function (xhr, status, error) {
-                        console.error('AJAX请求失败:', error);
+                // 更完善的Markdown到HTML转换，处理代码块等情况
+                let lines = message.split('\n');
+                let parsedMessage = '';
+                let inCodeBlock = false;
+                let codeBlockLanguage = '';
+                for (let line of lines) {
+                    if (line.startsWith('```')) {
+                        if (inCodeBlock) {
+                            // 结束代码块，添加高亮
+                            let code = document.createElement('pre');
+                            let codeInner = document.createElement('code');
+                            codeInner.textContent = codeBlockContent;
+                            codeInner.className = `language-${codeBlockLanguage}`;
+                            hljs.highlightElement(codeInner);
+                            code.appendChild(codeInner);
+                            parsedMessage += code.outerHTML;
+                            inCodeBlock = false;
+                        } else {
+                            // 开始代码块，获取语言标识
+                            codeBlockLanguage = line.slice(3).trim().toLowerCase();
+                            if (hljs.getLanguage(codeBlockLanguage)) {
+                                codeBlockContent = '';
+                                inCodeBlock = true;
+                            } else {
+                                // 不支持的语言，当作普通文本处理
+                                parsedMessage += line + '\n';
+                            }
+                        }
+                    } else if (inCodeBlock) {
+                        codeBlockContent += line + '\n';
+                    } else {
+                        // 普通文本行，进行常规的Markdown转换
+                        line = line
+                         .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // 加粗
+                         .replace(/\*(.*?)\*/g, '<em>$1</em>') // 斜体
+                         .replace(/`(.*?)`/g, '<code>$1</code>') // 代码（非代码块内的）
+                         .replace(/^#+\s+(.*)$/gm, function (match, p1) {
+                                let level = match.match(/#+/)[0].length;
+                                return `<h${level}>${p1}</h${level}>`; // 标题转换
+                            })
+                         .replace(/^\*\s+(.*)$/gm, '<li>$1</li>') // 无序列表项
+                         .replace(/^[0-9]+\.\s+(.*)$/gm, '<li>$1</li>') // 有序列表项
+                         .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2">$1</a>') // 链接
+                         .replace(/!\[(.*?)\]\((.*?)\)/g, '<img src="$2" alt="$1">') // 图片
+                         .replace(/\n/g, '<br>');
+                        parsedMessage += line;
                     }
+                }
+
+                newMessage.innerHTML = `<strong>${username}:</strong>${parsedMessage}`;
+                chatMessages.appendChild(newMessage);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            // 新增的显示图片函数
+            function displayImg(url, username) {
+                let chatMessages = document.getElementById('chat-messages');
+                let imgElement = document.createElement('img');
+                imgElement.src = url;
+                imgElement.alt = '聊天消息中的图片';
+                imgElement.style.maxWidth = '100%'; // 确保图片宽度自适应，不超出聊天消息区域
+                imgElement.style.borderRadius = '4px'; // 给图片添加圆角，与消息样式统一
+                imgElement.style.marginBottom = '10px'; // 图片下方添加一点间距
+
+                let imgMessage = document.createElement('div');
+                imgMessage.className = `chat-message ${username === 'You'? 'you' : 'gpt'}`;
+                imgMessage.appendChild(imgElement);
+                chatMessages.appendChild(imgMessage);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            function sendMsg(msg) {
+                let selectedModel = localStorage.getItem("selectedModel");
+                let selectedModel1 = JSON.parse(selectedModel);
+                layui.use(['jquery', 'layer'], function () {
+                    let $ = layui.jquery;
+                    let layer = layui.layer;
+                    localStorage.setItem('oldSelectedModel', JSON.stringify({'model_id': selectedModel1.model_id}));
+
+                    // 发送AJAX请求
+                    $.ajax({
+                        url: '/AI_chat',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        dataType: "json",
+                        data: {
+                            user_id: localStorage.getItem('user_id'),
+                            msg: msg,
+                            model: selectedModel
+                        },
+                        success: function (response) {
+                            let lastSelectedModel = JSON.parse(localStorage.getItem('oldSelectedModel'));
+                            let selectedModel = JSON.parse(localStorage.getItem("selectedModel"));
+                            if (lastSelectedModel.model_id === selectedModel.model_id) {
+                                if (response.msg[0] && response.msg[0].url) {
+                                    // 如果消息中有图片url，调用displayImg函数显示图片
+                                    displayImg(response.msg[0].url, 'gpt');
+                                }
+                                else{
+                                    displayMessage('gpt', response.msg);
+                                }
+                            }
+
+                        },
+                        error: function (xhr, status, error) {
+                            console.error('AJAX请求失败:', error);
+                        }
+                    });
+                });
+        }
+        </script>
+        <script>
+            $(document).ready(function () {
+                let initial_text = JSON.parse(localStorage.getItem('selectedModel'))['initial_text']
+                console.log(initial_text)
+                displayMessage('gpt', initial_text);
+            });
+
+            // 监听表单提交事件
+            layui.use(['form'], function () {
+                let form = layui.form;
+
+                // 监听发送消息按钮
+                form.on('submit(sendMessage)', function (data) {
+                    let message = data.field.message;
+                    sendMsg(message);
+                    // 显示消息
+                    displayMessage('You', message);
+                    // 清空输入框
+                    $('input[name="message"]').val('');
+                    return false;
                 });
             });
-        }
-    </script>
-    <script>
-
-        // 监听表单提交事件
-        layui.use(['form'], function () {
-            let form = layui.form;
-
-            // 监听发送消息按钮
-            form.on('submit(sendMessage)', function (data) {
-                let message = data.field.message;
-                sendMsg(message);
-                // 显示消息
-                displayMessage('You', message);
-                // 清空输入框
-                $('input[name="message"]').val('');
-                return false;
-            });
-        });
-    </script>
+        </script>
 
 </body>
 

@@ -1,6 +1,6 @@
 import time
 from APP.logs.logConfig import logging
-from APP.model.sqltest import get_session
+from APP.model.db_pool import get_session
 from APP.model.entity.Model import *
 
 # 配置日志记录器

@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import declarative_base
 
 # 假设sqltest模块已经定义了engine
-from APP.model import sqltest
+from APP.model import db_pool
 
 Base = declarative_base()
 

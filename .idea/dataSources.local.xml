@@ -11,8 +11,8 @@
       <schema-mapping>
         <introspection-scope>
           <node kind="schema">
-            <name qname="aichat" />
             <name qname="@" />
+            <name qname="aichat" />
           </node>
         </introspection-scope>
       </schema-mapping>

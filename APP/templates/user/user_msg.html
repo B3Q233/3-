@@ -63,14 +63,14 @@
         }
 
         $(document).ready(function() {
-            var user_id = localStorage.getItem("user_id");
-            var user_username  = localStorage.getItem("user_username");
-            var user_email = localStorage.getItem("user_email");
-            var user_api_key  = localStorage.getItem("user_api_key");
-            var user_password  = localStorage.getItem("user_password");
-            var user_quota  = localStorage.getItem("user_quota");
-            var userInfoContainer = document.getElementById('user-info-container');
-            var infoHtml = '<ul>';
+            let user_id = localStorage.getItem("user_id");
+            let user_username  = localStorage.getItem("user_username");
+            let user_email = localStorage.getItem("user_email");
+            let user_api_key  = localStorage.getItem("user_api_key");
+            let user_password  = localStorage.getItem("user_password");
+            let user_quota  = localStorage.getItem("user_quota");
+            let userInfoContainer = document.getElementById('user-info-container');
+            let infoHtml = '<ul>';
              infoHtml += '<li><strong>id:</strong> ' + user_id + '</li>';
              infoHtml += '<li><strong>用户名:</strong> ' + user_username + '</li>';
              infoHtml += '<li><strong>邮箱:</strong> ' + user_email + '</li>';
