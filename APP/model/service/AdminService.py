@@ -1,10 +1,9 @@
-from APP.model.operation import AdminModel
-from APP.model.operation.AdminModel import *
-from APP.model.service import UserService
+from APP.model.DAO import AdminDAO
+from APP.model.DAO.AdminDAO import *
 
 
 def get_admin_by_name(admin_name):
-    return AdminModel.find_admin_by_name(admin_name)
+    return AdminDAO.find_admin_by_name(admin_name)
 
 
 def admin_login_check(admin):

@@ -30,7 +30,7 @@
                     <a href="javascript:;">
                     </a>
                     <dl class="layui-nav-child">
-                        <dd><a href="admin_login.html">退出登录</a></dd>
+                        <dd><a href="/admin_login.html" onclick="admin_sign_out()" >退出登录</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -67,7 +67,26 @@
     </div>
 
     <script>
-
+        function showError(msg) {
+        layui.use('layer', function () {
+            let layer = layui.layer;
+            layer.msg(msg); // 默认风格
+        });
+        }
+        function admin_sign_out() {
+             $.ajax({
+                type: "POST",
+                contentType: 'application/json',
+                url: "/admin/admin_sign_out",  // 后端验证登录的接口地址，需根据实际情况修改
+                dataType: "json",
+                success: function (response) {
+                    window.location.href = "/admin_login";
+                },
+                error: function () {
+                    showError("请求发生错误，请稍后再试");
+                }
+            });
+        }
         window.onload = function () {
              let admin_name = localStorage.getItem("admin_name");
             if (admin_name) {

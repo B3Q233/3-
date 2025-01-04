@@ -1,6 +1,6 @@
-from APP.model.operation import UserModel
+from APP.model.DAO import UserDAO
 
-from APP.model.operation.UserModel import *
+from APP.model.DAO.UserDAO import *
 from APP.utils.tool import *
 
 
@@ -58,29 +58,31 @@ def delete_user_by_id(user_id):
     user = find_user_by_id(user_id)
     if user is None:
         return '删除失败，该用户不存在', False
-    status = UserModel.delete_user_by_id(user_id)
+    status = UserDAO.delete_user_by_id(user_id)
     if status:
         return '删除成功', True
     return '删除失败，请检查网络', False
 
 
 def update_whole_user(new_user):
-    status = UserModel.update_whole_user(new_user)
+    status = UserDAO.update_whole_user(new_user)
     if status:
         return '更新用户成功', True
     return '更新用户失败', False
 
 
 def update_user_quota(user_id, new_quota):
-    status = UserModel.update_user_quota(user_id, new_quota)
-    return status
+    status = UserDAO.update_user_quota(user_id, new_quota)
+    if status:
+        return '更新余额成功',True
+    return '余额不足，请联系管理员充值，或进行签到',False
 
 
 def update_user_level(user_id, new_level):
     get_user = find_user_by_id(user_id)
     if get_user.level >= new_level:
         return '用户已经是管理员，不能再次提升', False
-    status = UserModel.update_user_level(user_id, new_level)
+    status = UserDAO.update_user_level(user_id, new_level)
     if status:
         return '更新用户权限成功', True
     return '更新用户权限失败', False

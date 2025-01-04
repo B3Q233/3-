@@ -208,7 +208,7 @@
 
                 newMessage.innerHTML = `<strong>${username}:</strong>${parsedMessage}`;
                 chatMessages.appendChild(newMessage);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
+                newMessage.scrollIntoView(false);
             }
 
             // 新增的显示图片函数
@@ -217,7 +217,7 @@
                 let imgElement = document.createElement('img');
                 imgElement.src = url;
                 imgElement.alt = '聊天消息中的图片';
-                imgElement.style.maxWidth = '100%'; // 确保图片宽度自适应，不超出聊天消息区域
+                imgElement.style.maxWidth = '700%'; // 确保图片宽度自适应，不超出聊天消息区域
                 imgElement.style.borderRadius = '4px'; // 给图片添加圆角，与消息样式统一
                 imgElement.style.marginBottom = '10px'; // 图片下方添加一点间距
 
@@ -225,62 +225,107 @@
                 imgMessage.className = `chat-message ${username === 'You'? 'you' : 'gpt'}`;
                 imgMessage.appendChild(imgElement);
                 chatMessages.appendChild(imgMessage);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                imgElement.scrollIntoView(false);
+                imgMessage.scrollIntoView(false);
+                chatMessages.scrollIntoView(false);
+
             }
 
-            function sendMsg(msg) {
-                let selectedModel = localStorage.getItem("selectedModel");
-                let selectedModel1 = JSON.parse(selectedModel);
-                layui.use(['jquery', 'layer'], function () {
-                    let $ = layui.jquery;
-                    let layer = layui.layer;
-                    localStorage.setItem('oldSelectedModel', JSON.stringify({'model_id': selectedModel1.model_id}));
+    function sendMsg(msg) {
+            let selectedModel = localStorage.getItem("selectedModel");
+            let selectedModel1 = JSON.parse(selectedModel);
+            layui.use(['jquery', 'layer'], function () {
+                let $ = layui.jquery;
+                let layer = layui.layer;
+                localStorage.setItem('oldSelectedModel', JSON.stringify({ 'model_id': selectedModel1.model_id }));
 
-                    // 发送AJAX请求
-                    $.ajax({
-                        url: '/AI_chat',
-                        type: 'POST',
-                        contentType: 'application/json',
-                        dataType: "json",
-                        data: {
-                            user_id: localStorage.getItem('user_id'),
-                            msg: msg,
-                            model: selectedModel
-                        },
-                        success: function (response) {
-                            let lastSelectedModel = JSON.parse(localStorage.getItem('oldSelectedModel'));
-                            let selectedModel = JSON.parse(localStorage.getItem("selectedModel"));
-                            if (lastSelectedModel.model_id === selectedModel.model_id) {
-                                if (response.msg[0] && response.msg[0].url) {
-                                    // 如果消息中有图片url，调用displayImg函数显示图片
-                                    displayImg(response.msg[0].url, 'gpt');
-                                }
-                                else{
-                                    displayMessage('gpt', response.msg);
-                                }
+                // 发送AJAX请求
+                $.ajax({
+                    url: '/user/AI_chat',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    dataType: "json",
+                    data: {
+                        user_id: localStorage.getItem('user_id'),
+                        msg: msg,
+                        model: selectedModel
+                    },
+                    success: function (response) {
+                        let img = 0;
+                        let lastSelectedModel = JSON.parse(localStorage.getItem('oldSelectedModel'));
+                        let selectedModel = JSON.parse(localStorage.getItem("selectedModel"));
+                        if (lastSelectedModel.model_id === selectedModel.model_id) {
+                            if (response.msg[0] && response.msg[0].url) {
+                                // 如果消息中有图片url，调用displayImg函数显示图片
+                                displayImg(response.msg[0].url, 'gpt');
+                                img = 1;
+                            } else {
+                                displayMessage('gpt', response.msg);
+                                img = 0;
                             }
+                        }
 
-                        },
-                        error: function (xhr, status, error) {
-                            console.error('AJAX请求失败:', error);
+                        // 将新的聊天记录添加到对应模型id的聊天记录数组中
+                        let modelId = selectedModel1.model_id;
+                        if (!modelChatRecords[modelId]) {
+                            modelChatRecords[modelId] = [];
+                        }
+                        modelChatRecords[modelId].push({
+                            sender: 'You',
+                            message: msg
+                        });
+                        if (img === 1) {
+                            modelChatRecords[modelId].push({
+                                sender: 'gpt',
+                                message: response.msg[0].url
+                            });
+                        } else {
+                            modelChatRecords[modelId].push({
+                                sender: 'gpt',
+                                message: response.msg
+                            });
+                        }
+                        liao = 1;
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('AJAX请求失败:', error);
+                    }
+                });
+            });
+        }
+
+        $(document).ready(function () {
+            let selectedModel = JSON.parse(localStorage.getItem('selectedModel'));
+            let modelId = selectedModel? selectedModel.model_id : null;
+            if (modelId) {
+                // 检查是否有对应模型的聊天记录
+                if (modelChatRecords[modelId] && modelChatRecords[modelId].length > 0) {
+                    // 有聊天记录，加载并展示
+                    modelChatRecords[modelId].forEach(record => {
+                        if (record.message.startsWith('http') && (record.message.endsWith('.jpg') || record.message.endsWith('.png') || record.message.endsWith('.jpeg') || record.message.endsWith('.gif'))) {
+                            // 判断如果消息是以图片常见格式的url开头和结尾，认为是图片链接，调用displayImg函数展示
+                            displayImg(record.message, record.sender);
+                        } else {
+                            // 否则认为是普通文本消息，调用displayMessage函数展示
+                            displayMessage(record.sender, record.message);
                         }
                     });
-                });
-        }
-        </script>
-        <script>
-            $(document).ready(function () {
-                let initial_text = JSON.parse(localStorage.getItem('selectedModel'))['initial_text']
-                console.log(initial_text)
-                displayMessage('gpt', initial_text);
-            });
-
+                } else {
+                    // 无聊天记录，显示初始文本（假设initial_text仍按原来方式获取）
+                    let initial_text = JSON.parse(localStorage.getItem('selectedModel'))['initial_text'];
+                    console.log(initial_text);
+                    displayMessage('gpt', initial_text);
+                }
+            }
             // 监听表单提交事件
             layui.use(['form'], function () {
                 let form = layui.form;
 
                 // 监听发送消息按钮
                 form.on('submit(sendMessage)', function (data) {
+                    if (liao == 0) return false;
+                    liao = 0;
                     let message = data.field.message;
                     sendMsg(message);
                     // 显示消息
@@ -290,7 +335,8 @@
                     return false;
                 });
             });
-        </script>
+        });
+    </script>
 
 </body>
 

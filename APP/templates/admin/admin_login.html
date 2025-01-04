@@ -70,9 +70,9 @@
                         {#showError("管理员登录成功");#}
                         localStorage.setItem("admin_id", response.data.admin_id);
                         localStorage.setItem("admin_email", response.data.email);
-                        localStorage.setItem("admin_password", response.data.password);
+                        localStorage.setItem("admin_password", response.data.admin_password);
                         localStorage.setItem("admin_name", response.data.admin_name);
-                        window.location.href = "admin_main.html";
+                        window.location.href = "admin/admin_main.html";
                     } else {
                         showError(response.data);
                     }

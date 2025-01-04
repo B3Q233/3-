@@ -72,7 +72,7 @@
             $.ajax({
                 type: "POST",
                 contentType: 'application/json',
-                url: "/user_register_check",  // 后端验证登录的接口地址，需根据实际情况修改
+                url: "/user/user_register_check",  // 后端验证登录的接口地址，需根据实际情况修改
                 data:data,
                 dataType: "json",
                 success: function (response) {

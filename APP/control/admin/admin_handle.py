@@ -5,13 +5,17 @@ from APP.model.entity.User import *
 from APP.model.service import UserService, AdminService, ModelService
 from APP.utils.tool import *
 from APP.model.entity.Model import *
+from APP.app import set_session_id_to_user
+from APP.app import get_session_id_to_user
+from APP.app import set_session_id_to_user, get_session_id_to_user, delete_session_id_to_user
 
 
 # 管理员登录判断
-def login_check(request):
+def login_check(request,online_users):
     decoded_data = request.data.decode('utf-8')
     # 解析查询字符串
     parsed_data = parse_qs(decoded_data)
+    session_id = request.cookies.get('session')
     # 获取属性值
     admin_name = parsed_data.get('username')[0]
     admin_pwd = parsed_data.get('password')[0]
@@ -27,14 +31,16 @@ def login_check(request):
             if user.level > 0:
                 ret_status = 1 if ret_status else 0
                 real_admin,user_status = UserService.get_user_by_username(admin_name)
-                ret_msg = {'status': ret_status, 'data': {'admin_name': real_admin.username,'admin_id':real_admin.id,'email':real_admin.email,'admin_password':real_admin.password}}
+                ret_msg = {'status': ret_status, 'data': {'admin_name': real_admin.username,'admin_id':real_admin.id,'email':real_admin.email,'admin_password':'************************'}}
                 return json.dumps(ret_msg)
             ret_msg = {'status': ret_status, 'data': "管理员不存在"}
             return json.dumps(ret_msg)
     if status:
-        real_admin = AdminService.get_admin_by_name(admin_name)
+        set_session_id_to_user(session_id, 1,online_users)
+        real_admin = AdminService.get_admin_by_name(admin_name).to_dict()
+        real_admin['admin_password'] = '***********************'
         status = 1
-        ret_msg = {'status': status, 'data': real_admin.to_dict()}
+        ret_msg = {'status': status, 'data': real_admin}
     else:
         status = 0
         ret_msg = {'status': status, 'data': msg}
@@ -81,6 +87,19 @@ def user_delete(request):
         status = 0
     return json.dumps({'status': status, 'msg': ret_msg})
 
+
+def get_user_by_username(request):
+    get_data = parse_data(request)
+    username = get_data['username'][0]
+    ret_msg, status = UserService.get_user_by_username(username)
+    ret_msg = ret_msg.to_dict()
+    ret_msg['password'] = '************'
+    if status:
+        status = 1
+        ret_msg = {'status': status, 'data': ret_msg}
+        return json.dumps(ret_msg)
+    ret_msg = {'status': 0, 'data': None}
+    return json.dumps(ret_msg)
 
 # 用户修改
 def user_modify(request):

@@ -26,7 +26,7 @@
                 <input type="password" name="password">
             </div>
             <div class="btn-box">
-                <a href="../admin/admin_login.html">管理员登陆</a>
+                <a href="../admin_login.html">管理员登陆</a>
                 <div>
                     <button type="submit">登录</button>
                     <button type="button" onclick="window.location.href='../user/user_register.html';">注册</button>
@@ -64,7 +64,7 @@
         $.ajax({
             type: "POST",
             contentType: 'application/json',
-            url: "/user_login_check",  // 后端验证登录的接口地址，需根据实际情况修改
+            url: "/user/user_login_check",  // 后端验证登录的接口地址，需根据实际情况修改
             data: {
                 username: username,
                 password: password
@@ -82,7 +82,7 @@
                     localStorage.setItem("user_quota", response.data.quota);
                     window.location.href = "user_main.html";
                 }
-                showError(response.msg);
+                showError(response.data);
             },
             error: function () {
                 alert("请求发生错误，请稍后再试");

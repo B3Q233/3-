@@ -65,6 +65,9 @@
     </div>
 
     <script>
+                // 用于存储每个模型聊天记录的对象，键为模型id，值为聊天记录数组
+        const modelChatRecords = {};
+        let liao = 1;
         function showError(msg) {
             layui.use('layer', function () {
                 var layer = layui.layer;
@@ -76,8 +79,11 @@
             $.ajax({
                 type: "POST",
                 contentType: 'application/json',
-                url: "/user_sign_out",  // 后端验证登录的接口地址，需根据实际情况修改
+                url: "/user/user_sign_out",  // 后端验证登录的接口地址，需根据实际情况修改
                 dataType: "json",
+                data:{
+                    'user_id' : localStorage.getItem("user_id")
+                },
                 success: function (response) {
                     if (response.status === 1) {
                     showError('成功登出');
@@ -96,14 +102,15 @@
             $.ajax({
                 type: "POST",
                 contentType: 'application/json',
-                url: "/sign_in",  // 后端验证登录的接口地址，需根据实际情况修改
+                url: "/user/sign_in",  // 后端验证登录的接口地址，需根据实际情况修改
                 dataType: "json",
                 data:{
                   user_id: user_id
                 },
                 success: function (response) {
                     if (response.status === 1) {
-                    showError('签到成功');
+                        get_user_info()
+                        showError('签到成功');
                     }else{
                         showError(response.msg);
                     }
@@ -112,6 +119,35 @@
                     showError("请求发生错误，请稍后再试");
                 }
             });
+        }
+
+        function get_user_info() {
+             // 格式验证通过后，使用Ajax发送数据到后端
+        $.ajax({
+            type: "POST",
+            contentType: 'application/json',
+            url: "/user/get_user_by_name",  // 后端验证登录的接口地址，需根据实际情况修改
+            data: {
+                username: localStorage.getItem("user_username"),
+            },
+            dataType: "json",
+            success: function (response) {
+                if (response.status === 1) {
+                    {#showError(response.msg);#}
+                    // 将用户名存储到localStorage中，方便在user_main页面获取使用
+                    console.log(response);
+                    localStorage.setItem("user_id", response.data.id);
+                    localStorage.setItem("user_email", response.data.email);
+                    localStorage.setItem("user_api_key", response.data.api_key);
+                    localStorage.setItem("user_password", response.data.password);
+                    localStorage.setItem("user_username", response.data.username);
+                    localStorage.setItem("user_quota", response.data.quota);
+                }
+            },
+            error: function () {
+                alert("请求发生错误，请稍后再试");
+            }
+        });
         }
 
         window.onload = function () {

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>404 - 页面未找到</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='../static/layui/css/layui.css') }}">
+</head>
+
+<body>
+    <div class="layui-container">
+        <div class="layui-row">
+            <div class="layui-col-md12">
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        <h2>请先登录账号后再查看</h2>
+                    </div>
+                    <div class="layui-card-body">
+                        <p>很抱歉，您没有登录账户，无法查看</p>
+                        <p>您可以尝试返回上一页或者去 <a href="{{ url_for('index') }}">首页</a> </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', path='../static/layui/layui.js') }}"></script>
+</body>
+
+</html>

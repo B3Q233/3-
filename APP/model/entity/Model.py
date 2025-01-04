@@ -59,7 +59,7 @@ class Model(Base):
 
 if __name__ == '__main__':
     # 创建数据库表
-    Base.metadata.create_all(sqltest.engine)
+    Base.metadata.create_all(db_pool.engine)
 
     # 创建Model实例并转换为字典
     model_instance = Model(model_name='ExampleModel', model_category='Category', initial_text='Initial text')

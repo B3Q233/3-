@@ -1,7 +1,6 @@
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import declarative_base
 
-# 假设sqltest模块已经定义了engine
 from APP.model import db_pool
 
 Base = declarative_base()
@@ -52,7 +51,7 @@ class Admin(Base):
 
 if __name__ == '__main__':
     # 创建数据库表
-    Base.metadata.create_all(sqltest.engine)
+    Base.metadata.create_all(db_pool.engine)
 
     # 创建一个Admin实例并转换为字典
     admin_instance = Admin(admin_name='John Doe', password='password123', email='john@example.com')
