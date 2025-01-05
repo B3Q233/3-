@@ -151,7 +151,7 @@
         }
 
         window.onload = function () {
-            var loggedInUsername = localStorage.getItem("loggedInUsername");
+            var loggedInUsername = localStorage.getItem("user_username");
             if (loggedInUsername) {
                 // 替换导航栏中的账户名显示
                 var userNavItem = document.querySelector('.layui-nav-item.layui-show-md-inline-block');
