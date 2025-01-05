@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="@localhost [2]">
-  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.52">
+  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.53">
     <root id="1">
       <DefaultCasing>lower/lower</DefaultCasing>
       <DefaultEngine>InnoDB</DefaultEngine>
@@ -1057,24 +1057,24 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     </table>
     <column id="304" parent="299" name="admin_id">
       <AutoIncrement>1</AutoIncrement>
-      <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
+      <StoredType>int|0s</StoredType>
     </column>
     <column id="305" parent="299" name="admin_name">
-      <DasType>varchar(50)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
+      <StoredType>varchar(50)|0s</StoredType>
     </column>
     <column id="306" parent="299" name="password">
-      <DasType>varchar(20)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
+      <StoredType>varchar(20)|0s</StoredType>
     </column>
     <column id="307" parent="299" name="email">
-      <DasType>varchar(20)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
+      <StoredType>varchar(20)|0s</StoredType>
     </column>
     <index id="308" parent="299" name="PRIMARY">
       <ColNames>admin_id</ColNames>
@@ -1088,29 +1088,29 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     </key>
     <column id="310" parent="300" name="model_id">
       <AutoIncrement>1</AutoIncrement>
-      <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
+      <StoredType>int|0s</StoredType>
     </column>
     <column id="311" parent="300" name="model_name">
-      <DasType>varchar(100)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
+      <StoredType>varchar(100)|0s</StoredType>
     </column>
     <column id="312" parent="300" name="model_category">
-      <DasType>varchar(50)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
+      <StoredType>varchar(50)|0s</StoredType>
     </column>
     <column id="313" parent="300" name="initial_text">
-      <DasType>varchar(500)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
+      <StoredType>varchar(500)|0s</StoredType>
     </column>
     <column id="314" parent="300" name="model_description">
-      <DasType>varchar(500)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
+      <StoredType>varchar(500)|0s</StoredType>
     </column>
     <index id="315" parent="300" name="PRIMARY">
       <ColNames>model_id</ColNames>
@@ -1131,24 +1131,24 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <UnderlyingIndexName>model_name</UnderlyingIndexName>
     </key>
     <column id="319" parent="301" name="user_id">
-      <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
+      <StoredType>int|0s</StoredType>
     </column>
     <column id="320" parent="301" name="model_id">
-      <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
+      <StoredType>int|0s</StoredType>
     </column>
     <column id="321" parent="301" name="usage_content">
-      <DasType>varchar(200)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
+      <StoredType>varchar(200)|0s</StoredType>
     </column>
     <column id="322" parent="301" name="usage_time">
-      <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
+      <StoredType>datetime|0s</StoredType>
     </column>
     <foreign-key id="323" parent="301" name="user_model_usage_ibfk_1">
       <ColNames>user_id</ColNames>
@@ -1177,24 +1177,24 @@ model_id</ColNames>
     </key>
     <column id="328" parent="302" name="id">
       <AutoIncrement>1</AutoIncrement>
-      <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
+      <StoredType>int|0s</StoredType>
     </column>
     <column id="329" parent="302" name="user_id">
-      <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
+      <StoredType>int|0s</StoredType>
     </column>
     <column id="330" parent="302" name="is_online">
-      <DasType>tinyint(1)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
+      <StoredType>tinyint(1)|0s</StoredType>
     </column>
     <column id="331" parent="302" name="last_sign_in_time">
-      <DasType>datetime|0s</DasType>
       <DefaultExpression>&apos;1970-01-01 00:00:00&apos;</DefaultExpression>
       <Position>4</Position>
+      <StoredType>datetime|0s</StoredType>
     </column>
     <foreign-key id="332" parent="302" name="fk_user">
       <ColNames>user_id</ColNames>
@@ -1223,38 +1223,38 @@ model_id</ColNames>
     </key>
     <column id="337" parent="303" name="id">
       <AutoIncrement>1</AutoIncrement>
-      <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
+      <StoredType>int|0s</StoredType>
     </column>
     <column id="338" parent="303" name="email">
-      <DasType>varchar(30)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
+      <StoredType>varchar(30)|0s</StoredType>
     </column>
     <column id="339" parent="303" name="api_key">
-      <DasType>varchar(255)|0s</DasType>
       <Position>3</Position>
+      <StoredType>varchar(255)|0s</StoredType>
     </column>
     <column id="340" parent="303" name="password">
-      <DasType>varchar(20)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
+      <StoredType>varchar(20)|0s</StoredType>
     </column>
     <column id="341" parent="303" name="username">
-      <DasType>varchar(20)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
+      <StoredType>varchar(20)|0s</StoredType>
     </column>
     <column id="342" parent="303" name="quota">
-      <DasType>int|0s</DasType>
       <DefaultExpression>0</DefaultExpression>
       <Position>6</Position>
+      <StoredType>int|0s</StoredType>
     </column>
     <column id="343" parent="303" name="level">
-      <DasType>int|0s</DasType>
       <DefaultExpression>0</DefaultExpression>
       <Position>7</Position>
+      <StoredType>int|0s</StoredType>
     </column>
     <index id="344" parent="303" name="PRIMARY">
       <ColNames>id</ColNames>

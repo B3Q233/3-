@@ -286,13 +286,13 @@
                         liao = 1;
                     },
                     error: function (xhr, status, error) {
-                        console.error('AJAX请求失败:', error);
+                        showError('AJAX请求失败:', error);
                     }
                 });
             });
         }
 
-        $(document).ready(function () {
+    $(document).ready(function () {
             let selectedModel = JSON.parse(localStorage.getItem('selectedModel'));
             let modelId = selectedModel? selectedModel.model_id : null;
             if (modelId) {
@@ -311,7 +311,6 @@
                 } else {
                     // 无聊天记录，显示初始文本（假设initial_text仍按原来方式获取）
                     let initial_text = JSON.parse(localStorage.getItem('selectedModel'))['initial_text'];
-                    console.log(initial_text);
                     displayMessage('gpt', initial_text);
                 }
             }
